@@ -35,11 +35,11 @@ export function CharacterSelection({
   const meta = order.model ? MODEL_META[order.model] : MODEL_META.oxford;
 
   const colorFilter = (() => {
-    if (order.color === "ivory") return "brightness(1.4) saturate(0.3) sepia(0.2)";
-    if (order.color === "obsidian") return "brightness(0.55) saturate(0.4)";
-    if (order.color === "cognac") return "brightness(0.95) saturate(1.3) hue-rotate(-10deg) sepia(0.25)";
-    if (order.color === "oxblood") return "brightness(0.7) saturate(1.6) hue-rotate(-20deg) sepia(0.4)";
-    if (order.color === "olive") return "brightness(0.8) saturate(0.7) hue-rotate(40deg) sepia(0.3)";
+    if (order.color === "ivory") return "brightness(1.25) saturate(0.5) sepia(0.15)";
+    if (order.color === "obsidian") return "brightness(0.85) saturate(0.6)";
+    if (order.color === "cognac") return "brightness(1.05) saturate(1.25) hue-rotate(-8deg) sepia(0.2)";
+    if (order.color === "oxblood") return "brightness(0.9) saturate(1.4) hue-rotate(-15deg) sepia(0.3)";
+    if (order.color === "olive") return "brightness(0.95) saturate(0.85) hue-rotate(30deg) sepia(0.25)";
     return "";
   })();
 
@@ -79,15 +79,15 @@ export function CharacterSelection({
             transition={{ duration: 1.6 }}
             className="flex flex-col items-center"
           >
-            {/* Shoe fades into pure silhouette */}
+            {/* Shoe softly dims to suggest silhouette, but remains visible */}
             <motion.img
               src={img}
               alt={meta.name}
-              initial={{ opacity: 1, filter: "brightness(1)" }}
-              animate={{ opacity: [1, 0.4, 0.15] }}
-              transition={{ duration: 3, times: [0, 0.5, 1], ease: "easeInOut" }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.6, ease: "easeOut" }}
               className="max-h-[45vh] max-w-[70%] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.7)]"
-              style={{ filter: `${colorFilter} brightness(0.15) contrast(1.4)` }}
+              style={{ filter: colorFilter }}
             />
 
             <motion.p
@@ -144,7 +144,7 @@ export function CharacterSelection({
                         className="max-h-[28vh] md:max-h-[32vh] object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.7)]"
                         style={{
                           filter: `${colorFilter} ${
-                            selected ? "" : "brightness(0.3) contrast(1.3)"
+                            selected ? "" : "brightness(0.75)"
                           }`,
                           transform: LAST_TRANSFORM[shape],
                           transition: "filter 1s ease, transform 1s ease",
