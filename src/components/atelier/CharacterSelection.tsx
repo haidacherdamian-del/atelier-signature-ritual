@@ -35,11 +35,11 @@ export function CharacterSelection({
   const meta = order.model ? MODEL_META[order.model] : MODEL_META.oxford;
 
   const colorFilter = (() => {
-    if (order.color === "ivory") return "brightness(1.4) saturate(0.3) sepia(0.2)";
-    if (order.color === "obsidian") return "brightness(0.55) saturate(0.4)";
-    if (order.color === "cognac") return "brightness(0.95) saturate(1.3) hue-rotate(-10deg) sepia(0.25)";
-    if (order.color === "oxblood") return "brightness(0.7) saturate(1.6) hue-rotate(-20deg) sepia(0.4)";
-    if (order.color === "olive") return "brightness(0.8) saturate(0.7) hue-rotate(40deg) sepia(0.3)";
+    if (order.color === "ivory") return "brightness(1.25) saturate(0.5) sepia(0.15)";
+    if (order.color === "obsidian") return "brightness(0.85) saturate(0.6)";
+    if (order.color === "cognac") return "brightness(1.05) saturate(1.25) hue-rotate(-8deg) sepia(0.2)";
+    if (order.color === "oxblood") return "brightness(0.9) saturate(1.4) hue-rotate(-15deg) sepia(0.3)";
+    if (order.color === "olive") return "brightness(0.95) saturate(0.85) hue-rotate(30deg) sepia(0.25)";
     return "";
   })();
 
