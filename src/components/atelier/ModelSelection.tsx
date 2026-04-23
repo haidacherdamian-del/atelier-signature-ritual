@@ -4,7 +4,7 @@ import { MODEL_META, type ShoeModel } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
 import derby from "@/assets/shoe-derby.png";
 import loafer from "@/assets/shoe-loafer.png";
-import monk from "@/assets/shoe-monk.jpg";
+import monk from "@/assets/shoe-monk.png";
 import sneaker from "@/assets/shoe-sneaker.png";
 
 const MODELS: { id: ShoeModel; img: string }[] = [
