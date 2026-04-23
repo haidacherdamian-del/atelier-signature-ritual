@@ -23,10 +23,12 @@ export function Customization({
   order,
   onUpdate,
   onContinue,
+  onBack,
 }: {
   order: BespokeOrder;
   onUpdate: (p: Partial<BespokeOrder>) => void;
   onContinue: () => void;
+  onBack?: () => void;
 }) {
   const [section, setSection] = useState<Section>("leather");
   const img = order.model ? IMAGES[order.model] : oxford;
@@ -189,7 +191,17 @@ export function Customization({
           </AnimatePresence>
         </div>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-6 flex items-center justify-center gap-10">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="text-muted-foreground tracking-atelier hover:text-ivory transition-colors group"
+            >
+              <span className="border-transparent border-b pb-2 group-hover:border-ivory/40">
+                ← Modelle
+              </span>
+            </button>
+          )}
           <button
             onClick={onContinue}
             className="text-gold tracking-atelier hover:text-ivory transition-colors group"

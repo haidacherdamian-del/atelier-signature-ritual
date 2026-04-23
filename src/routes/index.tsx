@@ -75,6 +75,7 @@ function Atelier() {
             order={order}
             onUpdate={update}
             onContinue={() => setStage("character")}
+            onBack={() => setStage("model")}
           />
         )}
         {stage === "character" && (
