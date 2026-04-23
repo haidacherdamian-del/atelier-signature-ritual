@@ -23,10 +23,12 @@ export function Customization({
   order,
   onUpdate,
   onContinue,
+  onBack,
 }: {
   order: BespokeOrder;
   onUpdate: (p: Partial<BespokeOrder>) => void;
   onContinue: () => void;
+  onBack?: () => void;
 }) {
   const [section, setSection] = useState<Section>("leather");
   const img = order.model ? IMAGES[order.model] : oxford;
