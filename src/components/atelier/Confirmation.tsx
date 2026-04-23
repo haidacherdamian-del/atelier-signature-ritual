@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import type { BespokeOrder } from "./types";
 import { MODEL_META } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
@@ -11,19 +10,6 @@ import sneaker from "@/assets/shoe-sneaker.png";
 const IMAGES = { oxford, derby, loafer, monk, sneaker } as const;
 
 export function Confirmation({ order, onReset }: { order: BespokeOrder; onReset: () => void }) {
-  const [phase, setPhase] = useState<"text" | "details" | "fade">("text");
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setPhase("details"), 3500);
-    const t2 = setTimeout(() => setPhase("fade"), 18000);
-    const t3 = setTimeout(onReset, 22000);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-  }, [onReset]);
-
   const img = order.model ? IMAGES[order.model] : oxford;
   const meta = order.model ? MODEL_META[order.model] : MODEL_META.oxford;
   const ref = `MV-${Date.now().toString(36).toUpperCase().slice(-6)}`;
@@ -31,22 +17,18 @@ export function Confirmation({ order, onReset }: { order: BespokeOrder; onReset:
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: phase === "fade" ? 0 : 1 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 3 }}
       className="absolute inset-0 flex flex-col items-center justify-center px-8"
     >
       <div className="absolute inset-0 vignette pointer-events-none" />
 
-      {/* Fading shoe in background */}
       <motion.img
         src={img}
         alt={meta.name}
         initial={{ opacity: 0, scale: 1.05 }}
-        animate={{
-          opacity: phase === "fade" ? 0 : 0.18,
-          scale: phase === "fade" ? 0.95 : 1,
-        }}
+        animate={{ opacity: 0.18, scale: 1 }}
         transition={{ duration: 4 }}
         className="absolute max-h-[70vh] max-w-[80%] object-contain"
         style={{ filter: "blur(2px) brightness(0.6)" }}
@@ -59,13 +41,21 @@ export function Confirmation({ order, onReset }: { order: BespokeOrder; onReset:
           transition={{ duration: 3 }}
           className="font-display text-ivory text-3xl md:text-5xl italic leading-tight"
         >
-          Your bespoke creation is now in the hands of our artisans.
+          Ihr Schuh wird nun für Sie gefertigt.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 1.5 }}
+          className="font-display text-gold mt-4 text-2xl md:text-3xl italic"
+        >
+          Lieferung direkt zu Ihnen nach Hause.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: phase === "details" || phase === "fade" ? 1 : 0 }}
-          transition={{ duration: 2 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 3 }}
           className="mt-16 space-y-6"
         >
           <div className="flex justify-center">
@@ -73,10 +63,10 @@ export function Confirmation({ order, onReset }: { order: BespokeOrder; onReset:
           </div>
 
           <div className="grid grid-cols-2 gap-x-12 gap-y-5 max-w-md mx-auto text-left">
-            <Detail label="Reference" value={ref} />
-            <Detail label="Model" value={meta.name} />
-            <Detail label="Estimated" value="6–8 weeks" />
-            <Detail label="Delivery" value="By appointment" />
+            <Detail label="Referenz" value={ref} />
+            <Detail label="Modell" value={meta.name} />
+            <Detail label="Fertigung" value="6–8 Wochen" />
+            <Detail label="Lieferung" value="Nach Vereinbarung" />
           </div>
 
           <div className="flex justify-center pt-4">
@@ -84,14 +74,14 @@ export function Confirmation({ order, onReset }: { order: BespokeOrder; onReset:
           </div>
 
           <p className="text-gold-soft text-[0.6rem] tracking-[0.4em] uppercase">
-            A digital receipt has been sent to {order.customer.email || "you"}
+            Bestätigung per E-Mail an {order.customer.email || "Sie"}
           </p>
 
           <button
             onClick={onReset}
-            className="text-muted-foreground text-[0.6rem] tracking-[0.4em] uppercase hover:text-ivory transition-colors mt-12 block mx-auto"
+            className="text-muted-foreground text-[0.6rem] tracking-[0.4em] uppercase hover:text-ivory transition-colors mt-12 block mx-auto border-b border-gold/30 pb-1"
           >
-            — Return to atelier —
+            Zurück zum Atelier
           </button>
         </motion.div>
       </div>

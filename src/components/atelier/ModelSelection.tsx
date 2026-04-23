@@ -40,7 +40,7 @@ export function ModelSelection({ onSelect }: { onSelect: (m: ShoeModel) => void 
         transition={{ duration: 2 }}
         className="absolute top-20 text-center"
       >
-        <p className="text-gold-soft tracking-whisper">Chapter II — The Form</p>
+        <p className="text-gold-soft tracking-whisper">Modellauswahl</p>
       </motion.div>
 
       {/* Stage */}
@@ -128,7 +128,7 @@ export function ModelSelection({ onSelect }: { onSelect: (m: ShoeModel) => void 
           className="text-gold mt-12 tracking-atelier hover:text-ivory transition-colors group"
         >
           <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
-            Commission this form
+            Dieses Modell konfigurieren
           </span>
         </button>
       </div>

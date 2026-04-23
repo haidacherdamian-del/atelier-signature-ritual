@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { BespokeOrder } from "./types";
 import { COLOR_META, MODEL_META } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
@@ -17,11 +17,11 @@ export function CinematicReveal({
   order: BespokeOrder;
   onContinue: () => void;
 }) {
-  const [showCta, setShowCta] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setShowCta(true), 4500);
-    return () => clearTimeout(t);
-  }, []);
+  // User-controlled rotation via drag
+  const [rotation, setRotation] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startRot, setStartRot] = useState(0);
 
   const img = order.model ? IMAGES[order.model] : oxford;
   const meta = order.model ? MODEL_META[order.model] : MODEL_META.oxford;
@@ -35,6 +35,18 @@ export function CinematicReveal({
     return "";
   })();
 
+  const onPointerDown = (e: React.PointerEvent) => {
+    setDragging(true);
+    setStartX(e.clientX);
+    setStartRot(rotation);
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragging) return;
+    setRotation(startRot + (e.clientX - startX) * 0.4);
+  };
+  const onPointerUp = () => setDragging(false);
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -43,7 +55,6 @@ export function CinematicReveal({
       transition={{ duration: 2 }}
       className="absolute inset-0 flex flex-col items-center justify-center"
     >
-      {/* Dramatic spotlight */}
       <div
         className="absolute inset-0"
         style={{
@@ -53,71 +64,67 @@ export function CinematicReveal({
       />
       <div className="absolute inset-0 vignette pointer-events-none" />
 
-      {/* Light passing over */}
-      <motion.div
-        initial={{ x: "-100%" }}
-        animate={{ x: "200%" }}
-        transition={{ duration: 4, ease: "easeInOut", delay: 1 }}
-        className="absolute inset-y-0 w-[40%] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, oklch(0.78 0.09 75 / 0.15), transparent)",
-          filter: "blur(40px)",
-        }}
-      />
+      <div className="absolute top-20 text-center">
+        <p className="text-gold-soft tracking-whisper">Finaler Blick</p>
+      </div>
 
-      {/* Two shoes - left and right */}
-      <div className="relative flex items-center justify-center gap-8 md:gap-16">
+      {/* Two shoes - left and right (slightly different per scan) */}
+      <div
+        className="relative flex items-center justify-center gap-8 md:gap-16 select-none touch-none"
+        style={{ cursor: dragging ? "grabbing" : "grab" }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+      >
         {[0, 1].map((i) => (
           <motion.img
             key={i}
             src={img}
             alt={meta.name}
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, -8, 0],
-            }}
-            transition={{
-              opacity: { duration: 2.5, delay: 0.5 + i * 0.4 },
-              scale: { duration: 2.5, delay: 0.5 + i * 0.4 },
-              y: { duration: 6 + i, repeat: Infinity, ease: "easeInOut" },
-            }}
-            className="max-h-[40vh] max-w-[40%] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.8)]"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, delay: 0.3 + i * 0.3 }}
+            draggable={false}
+            className="max-h-[40vh] max-w-[40%] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.8)] pointer-events-none"
             style={{
               filter: `${filter} ${order.finish === "polished" ? "contrast(1.15)" : ""}`,
-              transform: i === 1 ? "scaleX(-1)" : undefined,
+              transform: `${i === 1 ? "scaleX(-1) " : ""}rotateY(${rotation}deg)`,
+              transition: dragging ? "none" : "transform 0.6s ease",
             }}
           />
         ))}
       </div>
 
-      {/* Caption */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2.5, delay: 2 }}
-        className="absolute bottom-32 text-center px-8"
+        transition={{ duration: 2, delay: 1.2 }}
+        className="absolute bottom-36 text-center px-8"
       >
-        <p className="text-gold-soft tracking-whisper mb-4">{COLOR_META[order.color].name} · {order.leather} · {order.finish}</p>
-        <p className="font-display text-ivory text-7xl md:text-8xl italic">One of one.</p>
+        <p className="text-gold-soft tracking-whisper mb-4">
+          {COLOR_META[order.color].name} · {order.leather} · {order.finish}
+        </p>
+        <p className="font-display text-ivory text-6xl md:text-7xl italic">Ein Unikat.</p>
         {order.signature && (
           <p className="font-display text-gold mt-4 text-xl italic opacity-70">
-            — engraved «{order.signature}»
+            — graviert «{order.signature}»
           </p>
         )}
+        <p className="text-muted-foreground text-[0.55rem] tracking-[0.4em] uppercase mt-6">
+          · ziehen zum drehen ·
+        </p>
       </motion.div>
 
       <motion.button
         initial={{ opacity: 0 }}
-        animate={{ opacity: showCta ? 1 : 0 }}
-        transition={{ duration: 1.5 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 2 }}
         onClick={onContinue}
         className="text-gold absolute bottom-12 tracking-atelier hover:text-ivory transition-colors group"
       >
         <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
-          Proceed to Concierge
+          Zur Bestellung
         </span>
       </motion.button>
     </motion.section>

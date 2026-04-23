@@ -12,10 +12,10 @@ const IMAGES = { oxford, derby, loafer, monk, sneaker } as const;
 
 type Section = "leather" | "color" | "sole" | "stitching" | "finish";
 const SECTIONS: { id: Section; label: string }[] = [
-  { id: "leather", label: "Leather" },
-  { id: "color", label: "Hue" },
-  { id: "sole", label: "Sole" },
-  { id: "stitching", label: "Stitch" },
+  { id: "leather", label: "Leder" },
+  { id: "color", label: "Farbe" },
+  { id: "sole", label: "Sohle" },
+  { id: "stitching", label: "Naht" },
   { id: "finish", label: "Finish" },
 ];
 
@@ -58,7 +58,7 @@ export function Customization({
         transition={{ duration: 1.5, delay: 0.3 }}
         className="text-center pt-12"
       >
-        <p className="text-gold-soft tracking-whisper">Chapter III — The Composition</p>
+        <p className="text-gold-soft tracking-whisper">Konfiguration</p>
         <p className="font-display text-ivory mt-3 text-3xl italic">{meta.name}</p>
       </motion.div>
 
@@ -98,7 +98,7 @@ export function Customization({
         {/* Subtle stitching indicator */}
         {order.stitching === "contrast" && (
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold text-[0.55rem] tracking-[0.4em] uppercase opacity-70">
-            · contrast thread ·
+            · Kontrastnaht ·
           </div>
         )}
       </div>
@@ -136,9 +136,9 @@ export function Customization({
               {section === "leather" && (
                 <Swatches
                   options={[
-                    { id: "calf", label: "Calf", swatch: "linear-gradient(135deg, #2a1a10, #4a2a18)" },
-                    { id: "suede", label: "Suede", swatch: "radial-gradient(circle, #5a4030, #2a1a10)" },
-                    { id: "exotic", label: "Exotic", swatch: "repeating-linear-gradient(45deg, #3a2010, #3a2010 4px, #2a1408 4px, #2a1408 8px)" },
+                    { id: "calf", label: "Kalbsleder", swatch: "linear-gradient(135deg, #2a1a10, #4a2a18)" },
+                    { id: "suede", label: "Veloursleder", swatch: "radial-gradient(circle, #5a4030, #2a1a10)" },
+                    { id: "exotic", label: "Exotisch", swatch: "repeating-linear-gradient(45deg, #3a2010, #3a2010 4px, #2a1408 4px, #2a1408 8px)" },
                   ]}
                   active={order.leather}
                   onSelect={(v) => onUpdate({ leather: v as BespokeOrder["leather"] })}
@@ -158,9 +158,9 @@ export function Customization({
               {section === "sole" && (
                 <Swatches
                   options={[
-                    { id: "leather", label: "Leather", swatch: "#3a2010" },
-                    { id: "rubber", label: "Rubber", swatch: "#0c0c0c" },
-                    { id: "mixed", label: "Mixed", swatch: "linear-gradient(90deg, #3a2010 50%, #0c0c0c 50%)" },
+                    { id: "leather", label: "Leder", swatch: "#3a2010" },
+                    { id: "rubber", label: "Gummi", swatch: "#0c0c0c" },
+                    { id: "mixed", label: "Kombiniert", swatch: "linear-gradient(90deg, #3a2010 50%, #0c0c0c 50%)" },
                   ]}
                   active={order.sole}
                   onSelect={(v) => onUpdate({ sole: v as BespokeOrder["sole"] })}
@@ -169,8 +169,8 @@ export function Customization({
               {section === "stitching" && (
                 <Swatches
                   options={[
-                    { id: "tone", label: "Tone-on-tone", swatch: "linear-gradient(135deg, #2a1a10, #2a1a10)" },
-                    { id: "contrast", label: "Contrast", swatch: "linear-gradient(135deg, #2a1a10, #d4a35a)" },
+                    { id: "tone", label: "Ton-in-Ton", swatch: "linear-gradient(135deg, #2a1a10, #2a1a10)" },
+                    { id: "contrast", label: "Kontrast", swatch: "linear-gradient(135deg, #2a1a10, #d4a35a)" },
                   ]}
                   active={order.stitching}
                   onSelect={(v) => onUpdate({ stitching: v as BespokeOrder["stitching"] })}
@@ -179,8 +179,8 @@ export function Customization({
               {section === "finish" && (
                 <Swatches
                   options={[
-                    { id: "matte", label: "Matte", swatch: "radial-gradient(circle, #2a1a10, #1a0f08)" },
-                    { id: "polished", label: "Polished", swatch: "radial-gradient(circle at 30% 30%, #6a4a30, #1a0f08)" },
+                    { id: "matte", label: "Matt", swatch: "radial-gradient(circle, #2a1a10, #1a0f08)" },
+                    { id: "polished", label: "Poliert", swatch: "radial-gradient(circle at 30% 30%, #6a4a30, #1a0f08)" },
                     { id: "patina", label: "Patina", swatch: "radial-gradient(ellipse at 40% 40%, #8a5a30, #2a1a10 70%)" },
                   ]}
                   active={order.finish}
@@ -197,7 +197,7 @@ export function Customization({
             className="text-gold tracking-atelier hover:text-ivory transition-colors group"
           >
             <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
-              Inscribe Your Signature
+              Weiter
             </span>
           </button>
         </div>

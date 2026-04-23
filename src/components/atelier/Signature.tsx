@@ -23,31 +23,26 @@ export function Signature({
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 2, delay: 0.3 }}
-        className="text-center mb-16"
+        className="text-center mb-12"
       >
-        <p className="text-gold-soft tracking-whisper mb-4">Chapter IV — The Mark</p>
-        <p className="font-display text-ivory text-4xl md:text-6xl italic">
-          A signature reserved for you alone.
-        </p>
+        <p className="text-gold-soft tracking-whisper mb-4">Personifizierung</p>
+        <p className="font-display text-ivory text-4xl md:text-6xl italic">Ihre Signatur</p>
       </motion.div>
 
       {/* Engraved lining preview */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2, delay: 1 }}
+        transition={{ duration: 2, delay: 0.8 }}
         className="relative w-full max-w-2xl"
       >
         <div
           className="relative rounded-sm overflow-hidden p-16"
           style={{
-            background:
-              "radial-gradient(ellipse at center, #3a2418 0%, #1a0e08 80%)",
-            boxShadow:
-              "inset 0 0 80px rgba(0,0,0,0.7), 0 30px 80px rgba(0,0,0,0.6)",
+            background: "radial-gradient(ellipse at center, #3a2418 0%, #1a0e08 80%)",
+            boxShadow: "inset 0 0 80px rgba(0,0,0,0.7), 0 30px 80px rgba(0,0,0,0.6)",
           }}
         >
-          {/* Leather grain texture overlay */}
           <div
             className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
             style={{
@@ -58,7 +53,7 @@ export function Signature({
 
           <div className="relative text-center">
             <p className="text-gold-soft text-[0.55rem] tracking-[0.5em] uppercase mb-6">
-              — Engraved within —
+              — Innen graviert —
             </p>
             <p
               className="font-display italic text-5xl md:text-7xl"
@@ -70,7 +65,7 @@ export function Signature({
                 minHeight: "1.2em",
               }}
             >
-              {value || <span className="opacity-30">Your name</span>}
+              {value || <span className="opacity-30">Ihr Name</span>}
             </p>
             <div className="mt-6 flex justify-center">
               <div className="h-px w-24 bg-gold/30" />
@@ -79,18 +74,17 @@ export function Signature({
         </div>
       </motion.div>
 
-      {/* Input */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 1.5 }}
-        className="mt-12 w-full max-w-md"
+        transition={{ duration: 1.5, delay: 1.3 }}
+        className="mt-10 w-full max-w-md"
       >
         <input
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value.slice(0, 24))}
-          placeholder="Inscribe your name or initials"
+          placeholder="Initialen oder Name"
           maxLength={24}
           className="w-full bg-transparent border-b border-gold/30 focus:border-gold outline-none text-center font-display text-2xl text-ivory placeholder:text-muted-foreground/50 placeholder:italic placeholder:font-display py-3 transition-colors"
         />
@@ -102,13 +96,11 @@ export function Signature({
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 2 }}
+        transition={{ duration: 1.5, delay: 1.8 }}
         onClick={onContinue}
-        className="text-gold mt-16 tracking-atelier hover:text-ivory transition-colors group"
+        className="text-gold mt-12 tracking-atelier hover:text-ivory transition-colors group"
       >
-        <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
-          Reveal The Pair
-        </span>
+        <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">Weiter</span>
       </motion.button>
     </motion.section>
   );
