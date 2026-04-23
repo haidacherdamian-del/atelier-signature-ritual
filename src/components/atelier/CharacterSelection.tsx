@@ -144,7 +144,7 @@ export function CharacterSelection({
                         className="max-h-[28vh] md:max-h-[32vh] object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.7)]"
                         style={{
                           filter: `${colorFilter} ${
-                            selected ? "" : "brightness(0.3) contrast(1.3)"
+                            selected ? "" : "brightness(0.75)"
                           }`,
                           transform: LAST_TRANSFORM[shape],
                           transition: "filter 1s ease, transform 1s ease",
