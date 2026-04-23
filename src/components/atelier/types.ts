@@ -6,6 +6,8 @@ export type Customer = {
   address: string;
 };
 
+export type LastShape = "round" | "square" | "almond";
+
 export type BespokeOrder = {
   model: ShoeModel | null;
   leather: "calf" | "suede" | "exotic";
@@ -13,8 +15,15 @@ export type BespokeOrder = {
   sole: "leather" | "rubber" | "mixed";
   stitching: "tone" | "contrast";
   finish: "matte" | "polished" | "patina";
+  last: LastShape;
   signature: string;
   customer: Customer;
+};
+
+export const LAST_META: Record<LastShape, { name: string; tagline: string }> = {
+  round: { name: "Rund", tagline: "Sanft. Klassisch. Vertraut." },
+  square: { name: "Eckig", tagline: "Markant. Architektonisch. Präsent." },
+  almond: { name: "Mandel", tagline: "Elegant. Verlängernd. Diskret." },
 };
 
 export const MODEL_META: Record<

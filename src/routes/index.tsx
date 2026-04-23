@@ -6,6 +6,7 @@ import { WelcomeTransition } from "@/components/atelier/WelcomeTransition";
 import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { Customization } from "@/components/atelier/Customization";
+import { CharacterSelection } from "@/components/atelier/CharacterSelection";
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
 import { Checkout } from "@/components/atelier/Checkout";
@@ -22,6 +23,7 @@ type Stage =
   | "scan"
   | "model"
   | "customize"
+  | "character"
   | "signature"
   | "reveal"
   | "checkout"
@@ -34,6 +36,7 @@ const initialOrder: BespokeOrder = {
   sole: "leather",
   stitching: "tone",
   finish: "polished",
+  last: "almond",
   signature: "",
   customer: { name: "", email: "", address: "" },
 };
@@ -69,6 +72,14 @@ function Atelier() {
         {stage === "customize" && (
           <Customization
             key="customize"
+            order={order}
+            onUpdate={update}
+            onContinue={() => setStage("character")}
+          />
+        )}
+        {stage === "character" && (
+          <CharacterSelection
+            key="character"
             order={order}
             onUpdate={update}
             onContinue={() => setStage("signature")}
