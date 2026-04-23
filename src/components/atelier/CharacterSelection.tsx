@@ -79,15 +79,15 @@ export function CharacterSelection({
             transition={{ duration: 1.6 }}
             className="flex flex-col items-center"
           >
-            {/* Shoe fades into pure silhouette */}
+            {/* Shoe softly dims to suggest silhouette, but remains visible */}
             <motion.img
               src={img}
               alt={meta.name}
-              initial={{ opacity: 1, filter: "brightness(1)" }}
-              animate={{ opacity: [1, 0.4, 0.15] }}
-              transition={{ duration: 3, times: [0, 0.5, 1], ease: "easeInOut" }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.6, ease: "easeOut" }}
               className="max-h-[45vh] max-w-[70%] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.7)]"
-              style={{ filter: `${colorFilter} brightness(0.15) contrast(1.4)` }}
+              style={{ filter: colorFilter }}
             />
 
             <motion.p
