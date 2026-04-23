@@ -21,17 +21,17 @@ export const MODEL_META: Record<
   ShoeModel,
   { name: string; tagline: string; image: string }
 > = {
-  oxford: { name: "The Oxford", tagline: "Timeless structure", image: "" },
-  derby: { name: "The Derby", tagline: "Refined ease", image: "" },
-  loafer: { name: "The Loafer", tagline: "Quiet sophistication", image: "" },
-  monk: { name: "The Monk", tagline: "Singular detail", image: "" },
-  sneaker: { name: "The Minimal", tagline: "Modern restraint", image: "" },
+  oxford: { name: "Oxford", tagline: "Zeitlose Struktur", image: "" },
+  derby: { name: "Derby", tagline: "Verfeinerte Leichtigkeit", image: "" },
+  loafer: { name: "Loafer", tagline: "Stille Eleganz", image: "" },
+  monk: { name: "Monk Strap", tagline: "Markantes Detail", image: "" },
+  sneaker: { name: "Minimal Sneaker", tagline: "Moderne Zurückhaltung", image: "" },
 };
 
 export const COLOR_META: Record<BespokeOrder["color"], { name: string; hex: string }> = {
   obsidian: { name: "Obsidian", hex: "#0a0807" },
   cognac: { name: "Cognac", hex: "#5a3018" },
   oxblood: { name: "Oxblood", hex: "#3d1014" },
-  ivory: { name: "Ivory", hex: "#e8dfcc" },
+  ivory: { name: "Elfenbein", hex: "#e8dfcc" },
   olive: { name: "Olive", hex: "#3a3a1f" },
 };

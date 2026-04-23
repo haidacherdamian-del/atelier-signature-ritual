@@ -36,12 +36,12 @@ export function Checkout({
         transition={{ duration: 2 }}
         className="text-center mb-12"
       >
-        <p className="text-gold-soft tracking-whisper mb-3">Chapter V — Concierge</p>
+        <p className="text-gold-soft tracking-whisper mb-3">Bestellung</p>
         <p className="font-display text-ivory text-3xl md:text-4xl italic">
-          Your pair will be handcrafted
+          Ihr Paar wird handgefertigt
         </p>
         <p className="font-display text-gold text-3xl md:text-4xl italic">
-          and delivered to your residence.
+          und zu Ihnen nach Hause geliefert.
         </p>
       </motion.div>
 
@@ -55,20 +55,20 @@ export function Checkout({
           label="Name"
           value={customer.name}
           onChange={(v) => onUpdate({ ...customer, name: v })}
-          placeholder="Your full name"
+          placeholder="Ihr vollständiger Name"
         />
         <Field
-          label="Email"
+          label="E-Mail"
           value={customer.email}
           onChange={(v) => onUpdate({ ...customer, email: v })}
-          placeholder="name@residence.com"
+          placeholder="name@residenz.de"
           type="email"
         />
         <Field
-          label="Delivery"
+          label="Adresse"
           value={customer.address}
           onChange={(v) => onUpdate({ ...customer, address: v })}
-          placeholder="Suite, residence, city"
+          placeholder="Straße, PLZ, Stadt"
         />
 
         <div className="pt-6">
@@ -80,17 +80,17 @@ export function Checkout({
             {processing ? (
               <>
                 <span className="inline-block h-3 w-3 rounded-full bg-obsidian animate-pulse" />
-                <span>Securing your commission</span>
+                <span>Wird gesichert</span>
               </>
             ) : (
               <>
                 <ApplePayMark />
-                <span>Pay Discreetly</span>
+                <span>Zahlung abschließen</span>
               </>
             )}
           </button>
           <p className="text-muted-foreground text-[0.55rem] tracking-[0.4em] uppercase text-center mt-4">
-            Secure · Encrypted · Private
+            Sicher · Verschlüsselt · Diskret
           </p>
         </div>
       </motion.div>
