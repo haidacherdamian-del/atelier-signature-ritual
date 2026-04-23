@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import welcomeHero from "@/assets/welcome-hero.png";
 
 export function WelcomeTransition({ onContinue }: { onContinue: () => void }) {
   return (
@@ -7,58 +8,48 @@ export function WelcomeTransition({ onContinue }: { onContinue: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 2 }}
-      className="absolute inset-0 flex items-center justify-center"
+      className="absolute inset-0 flex items-center justify-center cursor-pointer"
+      onClick={onContinue}
     >
-      {/* Subtle radial atelier glow — no shoe shape revealed yet */}
+      {/* Hero photograph */}
+      <motion.img
+        src={welcomeHero}
+        alt=""
+        initial={{ opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 3, ease: "easeOut" }}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+
+      {/* Subtle vignette to deepen the edges and protect the bottom text */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, oklch(0.18 0.02 60) 0%, oklch(0.06 0.004 60) 70%)",
+            "radial-gradient(ellipse at center, transparent 40%, oklch(0.04 0.003 60 / 0.55) 100%)",
         }}
       />
-      <div className="absolute inset-0 vignette" />
-
-      {/* Soft drifting light */}
-      <motion.div
-        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0"
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 30% 40%, oklch(0.78 0.09 75 / 0.15) 0%, transparent 40%)",
+            "linear-gradient(180deg, transparent 0%, oklch(0.04 0.003 60 / 0.85) 100%)",
         }}
       />
-      <motion.div
-        animate={{ opacity: [0.5, 0.2, 0.5], scale: [1.05, 1, 1.05] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 70% 60%, oklch(0.78 0.09 75 / 0.12) 0%, transparent 45%)",
-        }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2.5, delay: 1 }}
-        className="relative text-center px-8 max-w-3xl"
-      >
-        <p className="text-gold-soft tracking-whisper mb-6">Willkommen</p>
-        <p className="font-display text-ivory text-4xl md:text-6xl italic leading-tight">
-          Jedes Paar beginnt mit Ihrem Maß.
-        </p>
-      </motion.div>
 
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 3 }}
-        onClick={onContinue}
-        className="text-gold absolute bottom-20 tracking-atelier hover:text-ivory transition-colors group"
+        transition={{ duration: 2, delay: 2.5 }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onContinue();
+        }}
+        className="text-gold absolute bottom-12 tracking-atelier hover:text-ivory transition-colors group"
       >
-        <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">Fortfahren</span>
+        <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
+          Fortfahren
+        </span>
       </motion.button>
     </motion.section>
   );
