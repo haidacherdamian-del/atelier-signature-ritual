@@ -60,7 +60,7 @@ export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void;
     "right-done": {
       eyebrow: "Schritt 2 — Abgeschlossen",
       title: "Rechte Form, erfasst.",
-      cta: "Beide Formen ansehen",
+      cta: "Modelle entdecken",
       onTap: onComplete,
     },
     final: {

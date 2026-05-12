@@ -65,7 +65,8 @@ export function Checkout({
           style={{ color: "oklch(0.74 0.02 75 / 0.85)", fontWeight: 300 }}
         >
           Ihr Paar entsteht in unserer Werkstatt in Italien.
-          Lieferung in sechs bis acht Wochen, persönlich überreicht.
+          Die Fertigung erfolgt präzise von Hand
+          und benötigt sechs bis acht Wochen.
         </p>
       </motion.div>
 
