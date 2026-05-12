@@ -141,9 +141,13 @@ export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void;
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.8 }}
               onClick={current.onTap}
-              className="text-gold tracking-atelier hover:text-ivory transition-colors group"
+              className="group tracking-atelier transition-colors"
+              style={{ color: "oklch(0.86 0.10 78)" }}
             >
-              <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
+              <span
+                className="border-b pb-2 transition-colors"
+                style={{ borderColor: "oklch(0.86 0.10 78 / 0.55)" }}
+              >
                 {current.cta}
               </span>
             </motion.button>
@@ -154,7 +158,8 @@ export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void;
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-muted-foreground text-[0.6rem] tracking-[0.4em] uppercase"
+              className="text-[0.65rem] tracking-[0.4em] uppercase"
+              style={{ color: "oklch(0.7 0.02 70)" }}
             >
               · einen Moment ·
             </motion.p>
