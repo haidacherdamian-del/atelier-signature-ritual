@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { BackButton } from "./BackButton";
 
 type Phase =
   | "left-prompt"
