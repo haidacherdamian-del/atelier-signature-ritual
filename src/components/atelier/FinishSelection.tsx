@@ -44,7 +44,7 @@ export function FinishSelection({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.4 }}
-      className="absolute inset-0 flex flex-col items-center justify-center"
+      className="absolute inset-0 flex flex-col items-center justify-start pt-20 md:pt-24 pb-28 overflow-y-auto"
     >
       {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 spotlight pointer-events-none" />
@@ -55,7 +55,7 @@ export function FinishSelection({
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.6, delay: 0.2 }}
-        className="absolute top-20 md:top-24 text-center px-8"
+        className="relative text-center px-8 mb-10 md:mb-14"
       >
         <p
           className="text-[0.65rem] md:text-[0.7rem] tracking-[0.5em]"
@@ -64,7 +64,7 @@ export function FinishSelection({
           DIE VEREDELUNG
         </p>
         <p
-          className="font-display italic text-3xl md:text-4xl mt-6"
+          className="font-display italic text-3xl md:text-4xl mt-5"
           style={{ color: "oklch(0.94 0.015 80)" }}
         >
           Wählen Sie das Finish.
@@ -78,7 +78,7 @@ export function FinishSelection({
       </motion.div>
 
       {/* Two finishes */}
-      <div className="relative w-full max-w-6xl px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 mt-12">
+      <div className="relative w-full max-w-6xl px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
         {OPTIONS.map((opt, i) => {
           const isSelected = selected === opt.id;
           const isDimmed = selected !== null && !isSelected;
