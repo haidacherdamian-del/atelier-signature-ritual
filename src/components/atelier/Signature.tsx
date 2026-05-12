@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
+import { BackButton } from "./BackButton";
 
 export function Signature({
   value,
   onChange,
   onContinue,
+  onBack,
 }: {
   value: string;
   onChange: (v: string) => void;
   onContinue: () => void;
+  onBack?: () => void;
 }) {
   return (
     <motion.section
@@ -17,6 +20,7 @@ export function Signature({
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center px-8"
     >
+      {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 vignette pointer-events-none" />
 
       <motion.div
