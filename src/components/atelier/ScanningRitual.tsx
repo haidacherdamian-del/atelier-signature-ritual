@@ -101,6 +101,8 @@ export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void;
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center"
     >
+      {onBack && <BackButton onClick={onBack} />}
+
       {/* Top instruction */}
       <div className="absolute top-20 text-center px-8">
         <AnimatePresence mode="wait">
@@ -111,8 +113,13 @@ export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void;
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 1 }}
           >
-            <p className="text-gold-soft tracking-whisper mb-4">{current.eyebrow}</p>
-            <p className="font-display text-ivory text-4xl italic md:text-5xl">{current.title}</p>
+            <p className="tracking-whisper mb-4" style={{ color: "oklch(0.82 0.085 75)" }}>{current.eyebrow}</p>
+            <p
+              className="font-display text-4xl italic md:text-5xl"
+              style={{ color: "oklch(0.97 0.018 85)", textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}
+            >
+              {current.title}
+            </p>
           </motion.div>
         </AnimatePresence>
       </div>
