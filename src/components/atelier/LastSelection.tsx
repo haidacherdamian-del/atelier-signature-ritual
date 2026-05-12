@@ -31,8 +31,10 @@ const OPTIONS: {
 
 export function LastSelection({
   onSelect,
+  onBack,
 }: {
   onSelect: (last: LastShape) => void;
+  onBack?: () => void;
 }) {
   const [selected, setSelected] = useState<Choice | null>(null);
 
