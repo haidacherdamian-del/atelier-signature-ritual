@@ -11,7 +11,7 @@ type Phase =
   | "right-done"
   | "final";
 
-export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
+export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void; onBack?: () => void }) {
   const [phase, setPhase] = useState<Phase>("left-prompt");
 
   // Only the *scanning* phases auto-progress to "done" — everything else waits for tap.
