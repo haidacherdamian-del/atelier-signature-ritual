@@ -23,15 +23,17 @@ type Stage =
   | "idle"
   | "welcome"
   | "scan"
-  | "last"
   | "model"
+  | "last"
+  | "sneakerNotice"
   | "finish"
   | "signature"
   | "reveal"
   | "checkout"
   | "confirm";
 
-const FINISH_MODELS = new Set(["oxford", "derby", "monk"]);
+const FINISH_MODELS = new Set<ShoeModel>(["oxford", "derby", "monk"]);
+const NO_LAST_MODELS = new Set<ShoeModel>(["sneaker"]);
 
 const initialOrder: BespokeOrder = {
   model: null,
