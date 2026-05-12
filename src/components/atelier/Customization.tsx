@@ -363,16 +363,7 @@ export function Customization({
         </div>
 
         <div className="text-center mt-6 flex items-center justify-center gap-10">
-          {onBack && (
-            <button
-              onClick={onBack}
-              className="text-muted-foreground tracking-atelier hover:text-ivory transition-colors group"
-            >
-              <span className="border-transparent border-b pb-2 group-hover:border-ivory/40">
-                ← Modelle
-              </span>
-            </button>
-          )}
+
           <button
             onClick={onContinue}
             className="text-gold tracking-atelier hover:text-ivory transition-colors group"
