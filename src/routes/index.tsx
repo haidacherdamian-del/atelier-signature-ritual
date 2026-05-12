@@ -61,7 +61,16 @@ function Atelier() {
       <AnimatePresence mode="wait">
         {stage === "idle" && <IdleScreen key="idle" onBegin={() => setStage("welcome")} />}
         {stage === "welcome" && <WelcomeTransition key="welcome" onContinue={() => setStage("scan")} />}
-        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("model")} />}
+        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("last")} />}
+        {stage === "last" && (
+          <LastSelection
+            key="last"
+            onSelect={(last) => {
+              update({ last });
+              setStage("model");
+            }}
+          />
+        )}
         {stage === "model" && (
           <ModelSelection
             key="model"
