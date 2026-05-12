@@ -28,6 +28,7 @@ type Stage =
   | "last"
   | "sneakerNotice"
   | "finish"
+  | "customize"
   | "signature"
   | "reveal"
   | "checkout"
