@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { BackButton } from "./BackButton";
 import { MODEL_META, type ShoeModel } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
 import derby from "@/assets/shoe-derby.png";
