@@ -88,11 +88,40 @@ const PATINA_TECHNIQUES: {
   id: PatinaTechnique;
   name: string;
   whisper: string;
+  preview: string;
 }[] = [
-  { id: "marble", name: "Marble", whisper: "Geäderte Tiefe" },
-  { id: "papiro", name: "Papiro", whisper: "Handgeschöpft" },
-  { id: "regular", name: "Regular", whisper: "Klassische Hand" },
-  { id: "museum", name: "Museum", whisper: "Antike Würde" },
+  {
+    id: "marble",
+    name: "Marble",
+    whisper: "Organische Tiefe",
+    // Cloudy organic veining — irregular hand movement, smoked espresso base
+    preview:
+      "linear-gradient(135deg, rgba(255,235,210,0.06) 0%, rgba(0,0,0,0.35) 100%), radial-gradient(ellipse 60% 40% at 30% 35%, rgba(70,42,28,0.55), transparent 70%), radial-gradient(ellipse 50% 35% at 75% 70%, rgba(0,0,0,0.7), transparent 65%), radial-gradient(ellipse 30% 25% at 60% 25%, rgba(120,80,50,0.25), transparent 70%), linear-gradient(160deg, #1a120c 0%, #0a0604 100%)",
+  },
+  {
+    id: "papiro",
+    name: "Papiro",
+    whisper: "Feine Schichtung",
+    // Directional brushed/parchment wipe marks
+    preview:
+      "linear-gradient(135deg, rgba(255,235,210,0.05) 0%, rgba(0,0,0,0.25) 100%), repeating-linear-gradient(102deg, rgba(255,225,190,0.05) 0 1px, transparent 1px 4px, rgba(0,0,0,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 30% 40%, rgba(90,60,38,0.35), transparent 65%), linear-gradient(150deg, #1c1410 0%, #0c0805 100%)",
+  },
+  {
+    id: "regular",
+    name: "Regular",
+    whisper: "Klassische Balance",
+    // Smooth even burnishing — subtle polished gradient
+    preview:
+      "linear-gradient(140deg, rgba(255,235,205,0.08) 0%, rgba(255,235,205,0) 45%, rgba(0,0,0,0.4) 100%), radial-gradient(ellipse at 38% 38%, rgba(80,52,32,0.3), transparent 70%), linear-gradient(155deg, #1a120d 0%, #0c0805 100%)",
+  },
+  {
+    id: "museum",
+    name: "Museum",
+    whisper: "Gealterte Intensität",
+    // Smoky aged depth, multidimensional darkness
+    preview:
+      "linear-gradient(135deg, rgba(255,225,185,0.07) 0%, rgba(0,0,0,0.5) 100%), radial-gradient(ellipse 55% 40% at 28% 70%, rgba(85,50,28,0.4), transparent 60%), radial-gradient(ellipse 45% 35% at 75% 25%, rgba(0,0,0,0.85), transparent 65%), repeating-radial-gradient(circle at 60% 45%, rgba(0,0,0,0.18) 0 1px, transparent 1px 5px), linear-gradient(165deg, #14100a 0%, #050302 100%)",
+  },
 ];
 
 const PATINA_COLORS: { id: string; name: string; whisper: string; hex: string }[] = [
