@@ -6,6 +6,7 @@ import { WelcomeTransition } from "@/components/atelier/WelcomeTransition";
 import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
+import { FinishSelection } from "@/components/atelier/FinishSelection";
 import { Customization } from "@/components/atelier/Customization";
 import { CharacterSelection } from "@/components/atelier/CharacterSelection";
 import { Signature } from "@/components/atelier/Signature";
@@ -24,12 +25,15 @@ type Stage =
   | "scan"
   | "last"
   | "model"
+  | "finish"
   | "customize"
   | "character"
   | "signature"
   | "reveal"
   | "checkout"
   | "confirm";
+
+const FINISH_MODELS = new Set(["oxford", "derby", "monk"]);
 
 const initialOrder: BespokeOrder = {
   model: null,
@@ -77,9 +81,19 @@ function Atelier() {
             key="model"
             onSelect={(model: ShoeModel) => {
               update({ model });
-              setStage("customize");
+              setStage(FINISH_MODELS.has(model) ? "finish" : "customize");
             }}
             onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "finish" && (
+          <FinishSelection
+            key="finish"
+            onSelect={(choice) => {
+              update({ finish: choice === "patina" ? "patina" : "polished" });
+              setStage("customize");
+            }}
+            onBack={() => setStage("model")}
           />
         )}
         {stage === "customize" && (
@@ -88,7 +102,7 @@ function Atelier() {
             order={order}
             onUpdate={update}
             onContinue={() => setStage("character")}
-            onBack={() => setStage("model")}
+            onBack={() => setStage(order.model && FINISH_MODELS.has(order.model) ? "finish" : "model")}
           />
         )}
         {stage === "character" && (
