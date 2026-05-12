@@ -149,7 +149,7 @@ export function CinematicReveal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.8, delay: 1.8 }}
-        className="absolute bottom-12 left-0 right-0 px-10 md:px-16 hidden md:flex justify-between text-[0.55rem] tracking-[0.45em] uppercase"
+        className="absolute top-32 md:top-36 left-0 right-0 px-10 md:px-16 hidden md:flex justify-between text-[0.55rem] tracking-[0.45em] uppercase"
         style={{ color: "oklch(0.72 0.02 75 / 0.7)", fontWeight: 300 }}
       >
         <div className="space-y-1 text-left">
