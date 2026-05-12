@@ -98,6 +98,7 @@ export function LastSelection({
       <div className="flex items-center justify-center gap-12 md:gap-28 lg:gap-40 w-full max-w-6xl">
         {OPTIONS.map((opt, i) => {
           const isSelected = selected === opt.id;
+          const isEditorialPick = model === "loafer" && opt.id === "round";
           return (
             <motion.button
               key={opt.id}
