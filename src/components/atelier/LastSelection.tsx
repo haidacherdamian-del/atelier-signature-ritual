@@ -74,7 +74,7 @@ export function LastSelection({
           className="text-[0.65rem] md:text-[0.7rem] tracking-[0.6em]"
           style={{ color: "rgba(190,160,110,0.7)" }}
         >
-          PRÄZISION
+          {modelName ? `${modelName.toUpperCase()} · DIE FORM` : "PRÄZISION"}
         </p>
       </motion.div>
 
