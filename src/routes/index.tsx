@@ -8,6 +8,7 @@ import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
 import { SneakerSilhouetteNotice } from "@/components/atelier/SneakerSilhouetteNotice";
+import { Customization } from "@/components/atelier/Customization";
 
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
@@ -27,6 +28,7 @@ type Stage =
   | "last"
   | "sneakerNotice"
   | "finish"
+  | "customize"
   | "signature"
   | "reveal"
   | "checkout"
@@ -64,7 +66,7 @@ function Atelier() {
     NO_LAST_MODELS.has(model) ? "sneakerNotice" : "last";
 
   const afterLast = (model: ShoeModel | null): Stage =>
-    model && FINISH_MODELS.has(model) ? "finish" : "signature";
+    model && FINISH_MODELS.has(model) ? "finish" : "customize";
 
   return (
     <main className="grain relative h-screen w-screen overflow-hidden bg-background text-foreground">
@@ -105,11 +107,24 @@ function Atelier() {
             key="finish"
             onSelect={(choice) => {
               update({ finish: choice === "patina" ? "patina" : "polished" });
-              setStage("signature");
+              setStage("customize");
             }}
             onBack={() =>
               setStage(order.model && NO_LAST_MODELS.has(order.model) ? "sneakerNotice" : "last")
             }
+          />
+        )}
+        {stage === "customize" && (
+          <Customization
+            key="customize"
+            order={order}
+            onUpdate={update}
+            onContinue={() => setStage("signature")}
+            onBack={() => {
+              if (order.model && FINISH_MODELS.has(order.model)) return setStage("finish");
+              if (order.model && NO_LAST_MODELS.has(order.model)) return setStage("sneakerNotice");
+              return setStage("last");
+            }}
           />
         )}
         {stage === "signature" && (
@@ -118,11 +133,7 @@ function Atelier() {
             value={order.signature}
             onChange={(signature) => update({ signature })}
             onContinue={() => setStage("reveal")}
-            onBack={() => {
-              if (order.model && FINISH_MODELS.has(order.model)) return setStage("finish");
-              if (order.model && NO_LAST_MODELS.has(order.model)) return setStage("sneakerNotice");
-              return setStage("last");
-            }}
+            onBack={() => setStage("customize")}
           />
         )}
         {stage === "reveal" && <CinematicReveal key="reveal" order={order} onContinue={() => setStage("checkout")} />}
