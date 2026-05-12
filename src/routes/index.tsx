@@ -66,7 +66,7 @@ function Atelier() {
     NO_LAST_MODELS.has(model) ? "sneakerNotice" : "last";
 
   const afterLast = (model: ShoeModel | null): Stage =>
-    model && FINISH_MODELS.has(model) ? "finish" : "signature";
+    model && FINISH_MODELS.has(model) ? "finish" : "customize";
 
   return (
     <main className="grain relative h-screen w-screen overflow-hidden bg-background text-foreground">
