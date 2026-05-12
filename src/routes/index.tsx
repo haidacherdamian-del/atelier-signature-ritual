@@ -25,12 +25,15 @@ type Stage =
   | "scan"
   | "last"
   | "model"
+  | "finish"
   | "customize"
   | "character"
   | "signature"
   | "reveal"
   | "checkout"
   | "confirm";
+
+const FINISH_MODELS = new Set(["oxford", "derby", "monk"]);
 
 const initialOrder: BespokeOrder = {
   model: null,
