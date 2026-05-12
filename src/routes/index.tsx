@@ -33,6 +33,7 @@ type Stage =
   | "signature"
   | "reveal"
   | "checkout"
+  | "payment"
   | "confirm";
 
 const FINISH_MODELS = new Set<ShoeModel>(["oxford", "derby", "monk"]);
