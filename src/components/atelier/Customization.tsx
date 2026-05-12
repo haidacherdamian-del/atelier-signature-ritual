@@ -67,11 +67,21 @@ const TEXTURE_FOR: Record<PatinaTechnique | "standard", (hex: string) => string>
 };
 
 const STANDARD_TONES: Tone[] = [
-  { id: "obsidian", name: "Obsidian", whisper: "Tiefe Nacht", hex: "#0a0807", texture: calfTexture("#0a0807") },
-  { id: "cognac", name: "Cognac", whisper: "Warmes Licht", hex: "#5a3018", texture: calfTexture("#5a3018") },
+  { id: "black", name: "Black", whisper: "Tiefe Nacht", hex: "#0a0807", texture: calfTexture("#0a0807") },
+  { id: "grey", name: "Grey", whisper: "Stein im Nebel", hex: "#5a5a5a", texture: calfTexture("#5a5a5a") },
+  { id: "dark-brown", name: "Dark Brown", whisper: "Erdene Tiefe", hex: "#2a1a10", texture: calfTexture("#2a1a10") },
+  { id: "medium-brown", name: "Medium Brown", whisper: "Warmes Holz", hex: "#5a3820", texture: calfTexture("#5a3820") },
+  { id: "syrup", name: "Syrup", whisper: "Dunkler Sirup", hex: "#3e2410", texture: calfTexture("#3e2410") },
+  { id: "cognac", name: "Cognac", whisper: "Warmes Licht", hex: "#7a3e1a", texture: calfTexture("#7a3e1a") },
+  { id: "saffron", name: "Saffron", whisper: "Goldene Glut", hex: "#a55a1c", texture: calfTexture("#a55a1c") },
+  { id: "light-brown", name: "Light Brown", whisper: "Sandige Wärme", hex: "#9a6a3e", texture: calfTexture("#9a6a3e") },
   { id: "oxblood", name: "Oxblood", whisper: "Edler Wein", hex: "#3d1014", texture: calfTexture("#3d1014") },
-  { id: "ivory", name: "Elfenbein", whisper: "Stille Helle", hex: "#e8dfcc", texture: calfTexture("#e8dfcc") },
+  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#4a0c1c", texture: calfTexture("#4a0c1c") },
+  { id: "red", name: "Red", whisper: "Couture Rot", hex: "#7a1018", texture: calfTexture("#7a1018") },
+  { id: "forest-green", name: "Forest Green", whisper: "Tiefes Laub", hex: "#1a2e1c", texture: calfTexture("#1a2e1c") },
   { id: "olive", name: "Olive", whisper: "Ruhige Erde", hex: "#3a3a1f", texture: calfTexture("#3a3a1f") },
+  { id: "navy", name: "Navy", whisper: "Mitternachtsmeer", hex: "#0e1a30", texture: calfTexture("#0e1a30") },
+  { id: "medium-navy", name: "Medium Navy", whisper: "Indigo bei Tag", hex: "#1e2e4a", texture: calfTexture("#1e2e4a") },
 ];
 
 const PATINA_TECHNIQUES: {
@@ -85,28 +95,31 @@ const PATINA_TECHNIQUES: {
   { id: "museum", name: "Museum", whisper: "Antike Würde" },
 ];
 
+const PATINA_COLORS: { id: string; name: string; whisper: string; hex: string }[] = [
+  { id: "denim", name: "Denim", whisper: "Verwaschenes Indigo", hex: "#3a4a66" },
+  { id: "grey", name: "Grey", whisper: "Stein im Nebel", hex: "#5a5a5a" },
+  { id: "cognac", name: "Cognac", whisper: "Warmes Licht", hex: "#6a3a18" },
+  { id: "brown", name: "Brown", whisper: "Erdene Tiefe", hex: "#3a2010" },
+  { id: "purple", name: "Purple", whisper: "Sammtene Dämmerung", hex: "#3a1a3e" },
+  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#4a0c1c" },
+  { id: "khaki", name: "Khaki", whisper: "Stiller Salbei", hex: "#5a5230" },
+  { id: "turquoise", name: "Turquoise", whisper: "Adriatisches Blau", hex: "#1a4a52" },
+];
+
+const buildPatinaPalette = (technique: PatinaTechnique): Tone[] =>
+  PATINA_COLORS.map((c) => ({
+    id: `${technique}-${c.id}`,
+    name: c.name,
+    whisper: c.whisper,
+    hex: c.hex,
+    texture: TEXTURE_FOR[technique](c.hex),
+  }));
+
 const PATINA_PALETTES: Record<PatinaTechnique, Tone[]> = {
-  marble: [
-    { id: "marble-noir", name: "Noir Veiné", whisper: "Schwarz mit Adern", hex: "#1a0d08", texture: marbleTexture("#1a0d08") },
-    { id: "marble-cognac", name: "Cognac Veiné", whisper: "Goldene Maserung", hex: "#6a3a18", texture: marbleTexture("#6a3a18") },
-    { id: "marble-bordeaux", name: "Bordeaux Veiné", whisper: "Rot in Tiefe", hex: "#3a0c14", texture: marbleTexture("#3a0c14") },
-  ],
-  papiro: [
-    { id: "papiro-sable", name: "Sable", whisper: "Warmer Sand", hex: "#a87a4a", texture: papiroTexture("#a87a4a") },
-    { id: "papiro-tabac", name: "Tabac", whisper: "Gereifter Tabak", hex: "#5a3818", texture: papiroTexture("#5a3818") },
-    { id: "papiro-ambre", name: "Ambre", whisper: "Honigbernstein", hex: "#7a4818", texture: papiroTexture("#7a4818") },
-  ],
-  regular: [
-    { id: "regular-noir", name: "Noir", whisper: "Tiefes Schwarz", hex: "#0a0805", texture: calfTexture("#0a0805") },
-    { id: "regular-cognac", name: "Cognac", whisper: "Klassische Wärme", hex: "#5a3018", texture: calfTexture("#5a3018") },
-    { id: "regular-acajou", name: "Acajou", whisper: "Mahagoni", hex: "#3a160c", texture: calfTexture("#3a160c") },
-    { id: "regular-oxblood", name: "Oxblood", whisper: "Edler Wein", hex: "#3d1014", texture: calfTexture("#3d1014") },
-  ],
-  museum: [
-    { id: "museum-ebene", name: "Ébène", whisper: "Verbranntes Holz", hex: "#0c0604", texture: museumTexture("#0c0604") },
-    { id: "museum-patine", name: "Patine Ancienne", whisper: "Alter Bronzeton", hex: "#2a1408", texture: museumTexture("#2a1408") },
-    { id: "museum-rouge", name: "Rouge Antique", whisper: "Vergangenes Rot", hex: "#2a0a0a", texture: museumTexture("#2a0a0a") },
-  ],
+  marble: buildPatinaPalette("marble"),
+  papiro: buildPatinaPalette("papiro"),
+  regular: buildPatinaPalette("regular"),
+  museum: buildPatinaPalette("museum"),
 };
 
 // ─────────────────────────────────────────────
