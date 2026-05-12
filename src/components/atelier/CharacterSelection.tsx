@@ -25,10 +25,12 @@ export function CharacterSelection({
   order,
   onUpdate,
   onContinue,
+  onBack,
 }: {
   order: BespokeOrder;
   onUpdate: (p: Partial<BespokeOrder>) => void;
   onContinue: () => void;
+  onBack?: () => void;
 }) {
   const [phase, setPhase] = useState<Phase>("silhouette");
   const img = order.model ? IMAGES[order.model] : oxford;
