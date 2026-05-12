@@ -96,8 +96,8 @@ export function Checkout({
 
         <div className="pt-8">
           <button
-            onClick={handlePay}
-            disabled={!valid || processing}
+            onClick={handleContinue}
+            disabled={!valid}
             className="w-full py-5 rounded-sm tracking-[0.4em] text-[0.7rem] uppercase transition-all flex items-center justify-center gap-3 disabled:opacity-25 disabled:cursor-not-allowed"
             style={{
               backgroundColor: "transparent",
@@ -106,17 +106,7 @@ export function Checkout({
               fontWeight: 300,
             }}
           >
-            {processing ? (
-              <>
-                <span
-                  className="inline-block h-2 w-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: "oklch(0.85 0.10 78)" }}
-                />
-                <span>Wird vertraulich gesichert</span>
-              </>
-            ) : (
-              <span>Beauftragung bestätigen</span>
-            )}
+            <span>Beauftragung bestätigen</span>
           </button>
           <p
             className="text-[0.55rem] tracking-[0.45em] uppercase text-center mt-6"
