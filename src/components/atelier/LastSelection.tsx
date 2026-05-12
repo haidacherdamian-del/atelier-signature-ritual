@@ -214,7 +214,7 @@ export function LastSelection({
             className="relative text-[0.7rem] md:text-[0.75rem] tracking-[0.55em] transition-colors"
             style={{ color: "#d4b483" }}
           >
-            MODELL AUSWÄHLEN
+            FORTFAHREN
           </span>
           <span
             className="absolute left-1/2 -translate-x-1/2 bottom-2 h-px transition-all duration-700 group-hover:w-24"
