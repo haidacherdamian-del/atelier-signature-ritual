@@ -279,10 +279,9 @@ export function Customization({
       {/* Atelier rail — technique + tone tiles */}
       <div className="pb-10 px-6 md:px-12">
         {isPatina && (
-          <div className="flex justify-center gap-3 md:gap-5 mb-7">
+          <div className="flex justify-center gap-8 md:gap-12 mb-10">
             {PATINA_TECHNIQUES.map((t) => {
               const selected = technique === t.id;
-              const sample = PATINA_PALETTES[t.id][0];
               return (
                 <motion.button
                   key={t.id}
@@ -299,21 +298,21 @@ export function Customization({
                   <motion.div
                     animate={{
                       boxShadow: selected
-                        ? "0 0 24px oklch(0.78 0.09 75 / 0.45), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.85)"
-                        : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.18)",
+                        ? "0 0 26px oklch(0.78 0.09 75 / 0.32), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.75)"
+                        : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.12)",
                     }}
                     transition={{ duration: 0.5 }}
-                    className="h-12 w-20 md:h-14 md:w-24 rounded-[3px] overflow-hidden"
-                    style={{ backgroundImage: TEXTURE_FOR[t.id](sample.hex) }}
+                    className="h-16 w-28 md:h-20 md:w-32 rounded-[2px] overflow-hidden"
+                    style={{ backgroundImage: t.preview }}
                   />
                   <span
-                    className={`mt-2.5 font-display italic text-[0.78rem] transition-colors ${
+                    className={`mt-4 font-display italic text-[0.85rem] transition-colors ${
                       selected ? "text-gold" : "text-ivory/85 group-hover:text-gold-soft"
                     }`}
                   >
                     {t.name}
                   </span>
-                  <span className="text-gold-soft/70 tracking-whisper text-[0.5rem] mt-0.5">
+                  <span className="text-gold-soft/60 tracking-[0.25em] uppercase text-[0.55rem] mt-1.5">
                     {t.whisper}
                   </span>
                 </motion.button>
