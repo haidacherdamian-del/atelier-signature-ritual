@@ -128,6 +128,7 @@ export function Customization({
       transition={{ duration: 1.2 }}
       className="absolute inset-0 grid grid-rows-[auto_1fr_auto]"
     >
+      {onBack && <BackButton onClick={onBack} />}
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
