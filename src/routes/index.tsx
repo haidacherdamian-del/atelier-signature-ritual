@@ -107,11 +107,24 @@ function Atelier() {
             key="finish"
             onSelect={(choice) => {
               update({ finish: choice === "patina" ? "patina" : "polished" });
-              setStage("signature");
+              setStage("customize");
             }}
             onBack={() =>
               setStage(order.model && NO_LAST_MODELS.has(order.model) ? "sneakerNotice" : "last")
             }
+          />
+        )}
+        {stage === "customize" && (
+          <Customization
+            key="customize"
+            order={order}
+            onUpdate={update}
+            onContinue={() => setStage("signature")}
+            onBack={() => {
+              if (order.model && FINISH_MODELS.has(order.model)) return setStage("finish");
+              if (order.model && NO_LAST_MODELS.has(order.model)) return setStage("sneakerNotice");
+              return setStage("last");
+            }}
           />
         )}
         {stage === "signature" && (
@@ -120,11 +133,7 @@ function Atelier() {
             value={order.signature}
             onChange={(signature) => update({ signature })}
             onContinue={() => setStage("reveal")}
-            onBack={() => {
-              if (order.model && FINISH_MODELS.has(order.model)) return setStage("finish");
-              if (order.model && NO_LAST_MODELS.has(order.model)) return setStage("sneakerNotice");
-              return setStage("last");
-            }}
+            onBack={() => setStage("customize")}
           />
         )}
         {stage === "reveal" && <CinematicReveal key="reveal" order={order} onContinue={() => setStage("checkout")} />}
