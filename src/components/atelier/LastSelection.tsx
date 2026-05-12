@@ -98,6 +98,7 @@ export function LastSelection({
       <div className="flex items-center justify-center gap-12 md:gap-28 lg:gap-40 w-full max-w-6xl">
         {OPTIONS.map((opt, i) => {
           const isSelected = selected === opt.id;
+          const isEditorialPick = model === "loafer" && opt.id === "round";
           return (
             <motion.button
               key={opt.id}
@@ -152,7 +153,18 @@ export function LastSelection({
               </motion.div>
 
               {/* Label */}
-              <div className="mt-10 text-center">
+              <div className="mt-10 text-center relative">
+                {isEditorialPick && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.2, delay: 1.2 }}
+                    className="absolute -top-5 left-1/2 -translate-x-1/2 text-[0.55rem] tracking-[0.55em] whitespace-nowrap"
+                    style={{ color: "rgba(212,180,131,0.75)", fontWeight: 300 }}
+                  >
+                    — EDITORIAL EMPFOHLEN —
+                  </motion.p>
+                )}
                 <p
                   className="text-[0.7rem] md:text-[0.75rem] tracking-[0.5em]"
                   style={{
