@@ -149,7 +149,7 @@ export function CinematicReveal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.8, delay: 1.8 }}
-        className="absolute bottom-12 left-0 right-0 px-10 md:px-16 hidden md:flex justify-between text-[0.55rem] tracking-[0.45em] uppercase"
+        className="absolute top-32 md:top-36 left-0 right-0 px-10 md:px-16 hidden md:flex justify-between text-[0.55rem] tracking-[0.45em] uppercase"
         style={{ color: "oklch(0.72 0.02 75 / 0.7)", fontWeight: 300 }}
       >
         <div className="space-y-1 text-left">
@@ -164,22 +164,61 @@ export function CinematicReveal({
         </div>
       </motion.div>
 
-      {/* Continue */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.8, delay: 2.4 }}
-        onClick={onContinue}
-        className="absolute bottom-4 md:bottom-4 right-8 md:right-12 tracking-[0.5em] text-[0.7rem] group"
-        style={{ color: "oklch(0.88 0.10 78)", fontWeight: 300 }}
+      {/* Final commitment CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.8, delay: 2.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute left-1/2 -translate-x-1/2 bottom-10 md:bottom-12 flex flex-col items-center"
       >
-        <span
-          className="border-b pb-2"
-          style={{ borderColor: "oklch(0.78 0.075 72 / 0.45)" }}
+        <p
+          className="text-[0.55rem] md:text-[0.6rem] tracking-[0.55em] mb-5"
+          style={{ color: "oklch(0.72 0.02 75 / 0.75)", fontWeight: 300 }}
         >
-          BESTELLEN
-        </span>
-      </motion.button>
+          DER MOMENT DER VERPFLICHTUNG
+        </p>
+
+        <motion.button
+          onClick={onContinue}
+          whileHover={{ scale: 1.015 }}
+          whileTap={{ scale: 0.985 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="group relative px-14 md:px-20 py-5 md:py-6 overflow-hidden"
+          style={{
+            border: "1px solid oklch(0.78 0.075 72 / 0.5)",
+            background:
+              "linear-gradient(180deg, oklch(0.16 0.012 60 / 0.55) 0%, oklch(0.10 0.008 55 / 0.7) 100%)",
+            boxShadow:
+              "0 0 0 1px oklch(0.78 0.075 72 / 0.06) inset, 0 30px 60px -25px oklch(0 0 0 / 0.8)",
+          }}
+        >
+          {/* Soft ambient glow */}
+          <span
+            aria-hidden
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-[1200ms] pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, oklch(0.78 0.10 75 / 0.22) 0%, transparent 70%)",
+            }}
+          />
+          {/* Illuminated underline */}
+          <span
+            aria-hidden
+            className="absolute left-1/2 -translate-x-1/2 bottom-2 h-px transition-all duration-[900ms] ease-out group-hover:w-3/4"
+            style={{
+              width: "28%",
+              background:
+                "linear-gradient(90deg, transparent, oklch(0.85 0.10 78 / 0.85), transparent)",
+            }}
+          />
+          <span
+            className="relative tracking-[0.55em] text-[0.85rem] md:text-[0.95rem]"
+            style={{ color: "oklch(0.92 0.04 80)", fontWeight: 300 }}
+          >
+            JETZT BESTELLEN
+          </span>
+        </motion.button>
+      </motion.div>
     </motion.section>
   );
 }

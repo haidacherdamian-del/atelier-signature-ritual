@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { BackButton } from "./BackButton";
 import type { Customer } from "./types";
 
@@ -14,13 +13,11 @@ export function Checkout({
   onComplete: () => void;
   onBack?: () => void;
 }) {
-  const [processing, setProcessing] = useState(false);
   const valid = customer.name && customer.email && customer.address;
 
-  const handlePay = () => {
+  const handleContinue = () => {
     if (!valid) return;
-    setProcessing(true);
-    setTimeout(onComplete, 2200);
+    onComplete();
   };
 
   return (
@@ -65,7 +62,8 @@ export function Checkout({
           style={{ color: "oklch(0.74 0.02 75 / 0.85)", fontWeight: 300 }}
         >
           Ihr Paar entsteht in unserer Werkstatt in Italien.
-          Lieferung in sechs bis acht Wochen, persönlich überreicht.
+          Die Fertigung erfolgt präzise von Hand
+          und benötigt sechs bis acht Wochen.
         </p>
       </motion.div>
 
@@ -98,8 +96,8 @@ export function Checkout({
 
         <div className="pt-8">
           <button
-            onClick={handlePay}
-            disabled={!valid || processing}
+            onClick={handleContinue}
+            disabled={!valid}
             className="w-full py-5 rounded-sm tracking-[0.4em] text-[0.7rem] uppercase transition-all flex items-center justify-center gap-3 disabled:opacity-25 disabled:cursor-not-allowed"
             style={{
               backgroundColor: "transparent",
@@ -108,17 +106,7 @@ export function Checkout({
               fontWeight: 300,
             }}
           >
-            {processing ? (
-              <>
-                <span
-                  className="inline-block h-2 w-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: "oklch(0.85 0.10 78)" }}
-                />
-                <span>Wird vertraulich gesichert</span>
-              </>
-            ) : (
-              <span>Beauftragung bestätigen</span>
-            )}
+            <span>Beauftragung bestätigen</span>
           </button>
           <p
             className="text-[0.55rem] tracking-[0.45em] uppercase text-center mt-6"
