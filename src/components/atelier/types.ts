@@ -13,7 +13,7 @@ export type PatinaTechnique = "marble" | "papiro" | "regular" | "museum";
 export type BespokeOrder = {
   model: ShoeModel | null;
   leather: "calf" | "suede" | "exotic";
-  color: "obsidian" | "cognac" | "oxblood" | "ivory" | "olive";
+  color: string;
   sole: "leather" | "rubber" | "mixed";
   stitching: "tone" | "contrast";
   finish: "matte" | "polished" | "patina";
