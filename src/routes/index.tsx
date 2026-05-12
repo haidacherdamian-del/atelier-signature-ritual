@@ -46,6 +46,8 @@ const initialOrder: BespokeOrder = {
   sole: "leather",
   stitching: "tone",
   finish: "polished",
+  patinaTechnique: null,
+  patinaColor: null,
   last: "almond",
   signature: "",
   customer: { name: "", email: "", address: "" },
