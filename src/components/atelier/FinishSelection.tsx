@@ -108,7 +108,7 @@ export function FinishSelection({
                 }}
               />
 
-              <div className="relative h-[42vh] w-full flex items-center justify-center">
+              <div className="relative h-[34vh] md:h-[38vh] w-full flex items-center justify-center">
                 <motion.img
                   src={opt.image}
                   alt={opt.name}
