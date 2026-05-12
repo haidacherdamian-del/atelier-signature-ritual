@@ -7,7 +7,7 @@ import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
-import { Customization } from "@/components/atelier/Customization";
+
 
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
