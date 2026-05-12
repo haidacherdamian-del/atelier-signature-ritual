@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import type { LastShape } from "./types";
+import { BackButton } from "./BackButton";
 import lastClassic from "@/assets/last-classic.png";
 import lastSoft from "@/assets/last-soft.png";
 
