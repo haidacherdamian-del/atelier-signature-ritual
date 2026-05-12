@@ -13,6 +13,7 @@ import { Customization } from "@/components/atelier/Customization";
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
 import { Checkout } from "@/components/atelier/Checkout";
+import { Payment } from "@/components/atelier/Payment";
 import { Confirmation } from "@/components/atelier/Confirmation";
 import type { BespokeOrder, ShoeModel } from "@/components/atelier/types";
 
