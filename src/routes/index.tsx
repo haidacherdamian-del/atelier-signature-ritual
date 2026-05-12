@@ -114,6 +114,7 @@ function Atelier() {
             customer={order.customer}
             onUpdate={(customer) => update({ customer })}
             onComplete={() => setStage("confirm")}
+            onBack={() => setStage("reveal")}
           />
         )}
         {stage === "confirm" && <Confirmation key="confirm" order={order} onReset={reset} />}
