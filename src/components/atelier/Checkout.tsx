@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { BackButton } from "./BackButton";
 import type { Customer } from "./types";
 
 export function Checkout({
   customer,
   onUpdate,
   onComplete,
+  onBack,
 }: {
   customer: Customer;
   onUpdate: (c: Customer) => void;
   onComplete: () => void;
+  onBack?: () => void;
 }) {
   const [processing, setProcessing] = useState(false);
   const valid = customer.name && customer.email && customer.address;
@@ -25,31 +28,53 @@ export function Checkout({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}
-      className="absolute inset-0 flex flex-col items-center justify-center px-8 overflow-y-auto py-16"
+      transition={{ duration: 1.6 }}
+      className="absolute inset-0 flex flex-col items-center justify-start px-8 overflow-y-auto py-20"
     >
+      {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 vignette pointer-events-none" />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 45% at center top, oklch(0.78 0.10 75 / 0.07) 0%, transparent 70%)",
+        }}
+      />
 
+      {/* Concierge header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 2 }}
-        className="text-center mb-12"
+        className="text-center mb-14 max-w-xl"
       >
-        <p className="text-gold-soft tracking-whisper mb-3">Bestellung</p>
-        <p className="font-display text-ivory text-3xl md:text-4xl italic">
-          Ihr Paar wird handgefertigt
+        <p
+          className="text-[0.65rem] tracking-[0.5em] mb-6"
+          style={{ color: "oklch(0.78 0.075 72)", fontWeight: 300 }}
+        >
+          DIE BEAUFTRAGUNG
         </p>
-        <p className="font-display text-gold text-3xl md:text-4xl italic">
-          und zu Ihnen nach Hause geliefert.
+        <p
+          className="font-display italic text-3xl md:text-5xl leading-[1.05]"
+          style={{ color: "oklch(0.95 0.015 80)" }}
+        >
+          Wir beginnen die Arbeit.
+        </p>
+        <p
+          className="mt-6 text-sm md:text-base tracking-[0.14em] leading-relaxed max-w-md mx-auto"
+          style={{ color: "oklch(0.74 0.02 75 / 0.85)", fontWeight: 300 }}
+        >
+          Ihr Paar entsteht in unserer Werkstatt in Italien.
+          Lieferung in sechs bis acht Wochen, persönlich überreicht.
         </p>
       </motion.div>
 
+      {/* Form */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.6 }}
-        className="w-full max-w-md space-y-8"
+        transition={{ duration: 1.6, delay: 0.6 }}
+        className="w-full max-w-md space-y-10"
       >
         <Field
           label="Name"
@@ -58,39 +83,48 @@ export function Checkout({
           placeholder="Ihr vollständiger Name"
         />
         <Field
-          label="E-Mail"
+          label="Vertraulicher Kontakt"
           value={customer.email}
           onChange={(v) => onUpdate({ ...customer, email: v })}
           placeholder="name@residenz.de"
           type="email"
         />
         <Field
-          label="Adresse"
+          label="Lieferadresse"
           value={customer.address}
           onChange={(v) => onUpdate({ ...customer, address: v })}
           placeholder="Straße, PLZ, Stadt"
         />
 
-        <div className="pt-6">
+        <div className="pt-8">
           <button
             onClick={handlePay}
             disabled={!valid || processing}
-            className="w-full bg-ivory text-obsidian py-5 rounded-sm font-medium tracking-[0.25em] text-xs uppercase transition-all hover:bg-gold disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+            className="w-full py-5 rounded-sm tracking-[0.4em] text-[0.7rem] uppercase transition-all flex items-center justify-center gap-3 disabled:opacity-25 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: "transparent",
+              color: "oklch(0.92 0.02 82)",
+              border: "1px solid oklch(0.78 0.075 72 / 0.55)",
+              fontWeight: 300,
+            }}
           >
             {processing ? (
               <>
-                <span className="inline-block h-3 w-3 rounded-full bg-obsidian animate-pulse" />
-                <span>Wird gesichert</span>
+                <span
+                  className="inline-block h-2 w-2 rounded-full animate-pulse"
+                  style={{ backgroundColor: "oklch(0.85 0.10 78)" }}
+                />
+                <span>Wird vertraulich gesichert</span>
               </>
             ) : (
-              <>
-                <ApplePayMark />
-                <span>Zahlung abschließen</span>
-              </>
+              <span>Beauftragung bestätigen</span>
             )}
           </button>
-          <p className="text-muted-foreground text-[0.55rem] tracking-[0.4em] uppercase text-center mt-4">
-            Sicher · Verschlüsselt · Diskret
+          <p
+            className="text-[0.55rem] tracking-[0.45em] uppercase text-center mt-6"
+            style={{ color: "oklch(0.70 0.02 75 / 0.7)", fontWeight: 300 }}
+          >
+            Privat · Verschlüsselt · Persönlich begleitet
           </p>
         </div>
       </motion.div>
@@ -113,7 +147,10 @@ function Field({
 }) {
   return (
     <div>
-      <label className="text-gold-soft tracking-[0.4em] text-[0.55rem] uppercase block mb-2">
+      <label
+        className="tracking-[0.4em] text-[0.55rem] uppercase block mb-3"
+        style={{ color: "oklch(0.78 0.075 72)", fontWeight: 300 }}
+      >
         {label}
       </label>
       <input
@@ -121,16 +158,12 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border-b border-border focus:border-gold outline-none font-display text-xl text-ivory placeholder:text-muted-foreground/40 placeholder:italic py-2 transition-colors"
+        className="w-full bg-transparent border-b outline-none font-display italic text-xl py-2 transition-colors"
+        style={{
+          color: "oklch(0.95 0.015 80)",
+          borderColor: "oklch(0.78 0.075 72 / 0.3)",
+        }}
       />
     </div>
-  );
-}
-
-function ApplePayMark() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M17.05 12.04c-.03-2.85 2.33-4.22 2.43-4.29-1.32-1.94-3.39-2.21-4.12-2.24-1.76-.18-3.43 1.04-4.32 1.04-.9 0-2.27-1.02-3.74-.99-1.92.03-3.7 1.12-4.69 2.84-2 3.46-.51 8.57 1.44 11.39.95 1.38 2.08 2.93 3.55 2.87 1.43-.06 1.97-.92 3.7-.92s2.21.92 3.72.89c1.54-.03 2.51-1.4 3.45-2.79 1.09-1.6 1.54-3.16 1.56-3.24-.03-.01-2.99-1.15-3.02-4.56zM14.16 4.04c.79-.96 1.32-2.29 1.18-3.62-1.13.05-2.51.76-3.32 1.71-.73.85-1.37 2.21-1.2 3.51 1.27.1 2.55-.64 3.34-1.6z" />
-    </svg>
   );
 }

@@ -7,8 +7,8 @@ import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
-import { Customization } from "@/components/atelier/Customization";
-import { CharacterSelection } from "@/components/atelier/CharacterSelection";
+
+
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
 import { Checkout } from "@/components/atelier/Checkout";
@@ -26,8 +26,6 @@ type Stage =
   | "last"
   | "model"
   | "finish"
-  | "customize"
-  | "character"
   | "signature"
   | "reveal"
   | "checkout"
@@ -60,6 +58,8 @@ function Atelier() {
     setStage("idle");
   }, []);
 
+  const afterModel = (model: ShoeModel) => (FINISH_MODELS.has(model) ? "finish" : "signature");
+
   return (
     <main className="grain relative h-screen w-screen overflow-hidden bg-background text-foreground">
       <AnimatePresence mode="wait">
@@ -81,7 +81,7 @@ function Atelier() {
             key="model"
             onSelect={(model: ShoeModel) => {
               update({ model });
-              setStage(FINISH_MODELS.has(model) ? "finish" : "customize");
+              setStage(afterModel(model));
             }}
             onBack={() => setStage("last")}
           />
@@ -91,27 +91,9 @@ function Atelier() {
             key="finish"
             onSelect={(choice) => {
               update({ finish: choice === "patina" ? "patina" : "polished" });
-              setStage("customize");
+              setStage("signature");
             }}
             onBack={() => setStage("model")}
-          />
-        )}
-        {stage === "customize" && (
-          <Customization
-            key="customize"
-            order={order}
-            onUpdate={update}
-            onContinue={() => setStage("character")}
-            onBack={() => setStage(order.model && FINISH_MODELS.has(order.model) ? "finish" : "model")}
-          />
-        )}
-        {stage === "character" && (
-          <CharacterSelection
-            key="character"
-            order={order}
-            onUpdate={update}
-            onContinue={() => setStage("signature")}
-            onBack={() => setStage("customize")}
           />
         )}
         {stage === "signature" && (
@@ -120,7 +102,9 @@ function Atelier() {
             value={order.signature}
             onChange={(signature) => update({ signature })}
             onContinue={() => setStage("reveal")}
-            onBack={() => setStage("character")}
+            onBack={() =>
+              setStage(order.model && FINISH_MODELS.has(order.model) ? "finish" : "model")
+            }
           />
         )}
         {stage === "reveal" && <CinematicReveal key="reveal" order={order} onContinue={() => setStage("checkout")} />}
@@ -130,6 +114,7 @@ function Atelier() {
             customer={order.customer}
             onUpdate={(customer) => update({ customer })}
             onComplete={() => setStage("confirm")}
+            onBack={() => setStage("reveal")}
           />
         )}
         {stage === "confirm" && <Confirmation key="confirm" order={order} onReset={reset} />}
