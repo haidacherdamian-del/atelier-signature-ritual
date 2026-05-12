@@ -22,6 +22,7 @@ type Stage =
   | "idle"
   | "welcome"
   | "scan"
+  | "last"
   | "model"
   | "customize"
   | "character"
