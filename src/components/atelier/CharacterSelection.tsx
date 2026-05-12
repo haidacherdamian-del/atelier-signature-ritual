@@ -54,6 +54,7 @@ export function CharacterSelection({
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center px-8"
     >
+      {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 vignette pointer-events-none" />
       <div
         className="absolute inset-0 pointer-events-none"
