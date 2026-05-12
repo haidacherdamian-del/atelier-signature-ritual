@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import type { LastShape } from "./types";
+import type { LastShape, ShoeModel } from "./types";
+import { MODEL_META } from "./types";
 import { BackButton } from "./BackButton";
 import lastClassic from "@/assets/last-classic.png";
 import lastSoft from "@/assets/last-soft.png";
@@ -33,11 +34,14 @@ const OPTIONS: {
 export function LastSelection({
   onSelect,
   onBack,
+  model,
 }: {
   onSelect: (last: LastShape) => void;
   onBack?: () => void;
+  model?: ShoeModel | null;
 }) {
   const [selected, setSelected] = useState<Choice | null>(null);
+  const modelName = model ? MODEL_META[model].name : null;
 
   return (
     <motion.section
@@ -70,7 +74,7 @@ export function LastSelection({
           className="text-[0.65rem] md:text-[0.7rem] tracking-[0.6em]"
           style={{ color: "rgba(190,160,110,0.7)" }}
         >
-          PRÄZISION
+          {modelName ? `${modelName.toUpperCase()} · DIE FORM` : "PRÄZISION"}
         </p>
       </motion.div>
 
@@ -210,7 +214,7 @@ export function LastSelection({
             className="relative text-[0.7rem] md:text-[0.75rem] tracking-[0.55em] transition-colors"
             style={{ color: "#d4b483" }}
           >
-            MODELL AUSWÄHLEN
+            FORTFAHREN
           </span>
           <span
             className="absolute left-1/2 -translate-x-1/2 bottom-2 h-px transition-all duration-700 group-hover:w-24"

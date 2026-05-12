@@ -7,7 +7,7 @@ import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
-
+import { SneakerSilhouetteNotice } from "@/components/atelier/SneakerSilhouetteNotice";
 
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
@@ -23,15 +23,17 @@ type Stage =
   | "idle"
   | "welcome"
   | "scan"
-  | "last"
   | "model"
+  | "last"
+  | "sneakerNotice"
   | "finish"
   | "signature"
   | "reveal"
   | "checkout"
   | "confirm";
 
-const FINISH_MODELS = new Set(["oxford", "derby", "monk"]);
+const FINISH_MODELS = new Set<ShoeModel>(["oxford", "derby", "monk"]);
+const NO_LAST_MODELS = new Set<ShoeModel>(["sneaker"]);
 
 const initialOrder: BespokeOrder = {
   model: null,
@@ -58,24 +60,18 @@ function Atelier() {
     setStage("idle");
   }, []);
 
-  const afterModel = (model: ShoeModel) => (FINISH_MODELS.has(model) ? "finish" : "signature");
+  const afterModel = (model: ShoeModel): Stage =>
+    NO_LAST_MODELS.has(model) ? "sneakerNotice" : "last";
+
+  const afterLast = (model: ShoeModel | null): Stage =>
+    model && FINISH_MODELS.has(model) ? "finish" : "signature";
 
   return (
     <main className="grain relative h-screen w-screen overflow-hidden bg-background text-foreground">
       <AnimatePresence mode="wait">
         {stage === "idle" && <IdleScreen key="idle" onBegin={() => setStage("welcome")} />}
         {stage === "welcome" && <WelcomeTransition key="welcome" onContinue={() => setStage("scan")} />}
-        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("last")} onBack={() => setStage("welcome")} />}
-        {stage === "last" && (
-          <LastSelection
-            key="last"
-            onSelect={(last) => {
-              update({ last });
-              setStage("model");
-            }}
-            onBack={() => setStage("scan")}
-          />
-        )}
+        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("model")} onBack={() => setStage("welcome")} />}
         {stage === "model" && (
           <ModelSelection
             key="model"
@@ -83,7 +79,25 @@ function Atelier() {
               update({ model });
               setStage(afterModel(model));
             }}
-            onBack={() => setStage("last")}
+            onBack={() => setStage("scan")}
+          />
+        )}
+        {stage === "last" && (
+          <LastSelection
+            key="last"
+            model={order.model}
+            onSelect={(last) => {
+              update({ last });
+              setStage(afterLast(order.model));
+            }}
+            onBack={() => setStage("model")}
+          />
+        )}
+        {stage === "sneakerNotice" && (
+          <SneakerSilhouetteNotice
+            key="sneakerNotice"
+            onContinue={() => setStage(afterLast(order.model))}
+            onBack={() => setStage("model")}
           />
         )}
         {stage === "finish" && (
@@ -93,7 +107,9 @@ function Atelier() {
               update({ finish: choice === "patina" ? "patina" : "polished" });
               setStage("signature");
             }}
-            onBack={() => setStage("model")}
+            onBack={() =>
+              setStage(order.model && NO_LAST_MODELS.has(order.model) ? "sneakerNotice" : "last")
+            }
           />
         )}
         {stage === "signature" && (
@@ -102,9 +118,11 @@ function Atelier() {
             value={order.signature}
             onChange={(signature) => update({ signature })}
             onContinue={() => setStage("reveal")}
-            onBack={() =>
-              setStage(order.model && FINISH_MODELS.has(order.model) ? "finish" : "model")
-            }
+            onBack={() => {
+              if (order.model && FINISH_MODELS.has(order.model)) return setStage("finish");
+              if (order.model && NO_LAST_MODELS.has(order.model)) return setStage("sneakerNotice");
+              return setStage("last");
+            }}
           />
         )}
         {stage === "reveal" && <CinematicReveal key="reveal" order={order} onContinue={() => setStage("checkout")} />}
