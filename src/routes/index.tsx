@@ -81,9 +81,19 @@ function Atelier() {
             key="model"
             onSelect={(model: ShoeModel) => {
               update({ model });
-              setStage("customize");
+              setStage(FINISH_MODELS.has(model) ? "finish" : "customize");
             }}
             onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "finish" && (
+          <FinishSelection
+            key="finish"
+            onSelect={(choice) => {
+              update({ finish: choice === "patina" ? "patina" : "polished" });
+              setStage("customize");
+            }}
+            onBack={() => setStage("model")}
           />
         )}
         {stage === "customize" && (
@@ -92,7 +102,7 @@ function Atelier() {
             order={order}
             onUpdate={update}
             onContinue={() => setStage("character")}
-            onBack={() => setStage("model")}
+            onBack={() => setStage(order.model && FINISH_MODELS.has(order.model) ? "finish" : "model")}
           />
         )}
         {stage === "character" && (
