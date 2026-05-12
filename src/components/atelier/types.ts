@@ -8,6 +8,8 @@ export type Customer = {
 
 export type LastShape = "round" | "square" | "almond";
 
+export type PatinaTechnique = "marble" | "papiro" | "regular" | "museum";
+
 export type BespokeOrder = {
   model: ShoeModel | null;
   leather: "calf" | "suede" | "exotic";
@@ -15,6 +17,8 @@ export type BespokeOrder = {
   sole: "leather" | "rubber" | "mixed";
   stitching: "tone" | "contrast";
   finish: "matte" | "polished" | "patina";
+  patinaTechnique: PatinaTechnique | null;
+  patinaColor: string | null;
   last: LastShape;
   signature: string;
   customer: Customer;
