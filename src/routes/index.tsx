@@ -5,6 +5,7 @@ import { IdleScreen } from "@/components/atelier/IdleScreen";
 import { WelcomeTransition } from "@/components/atelier/WelcomeTransition";
 import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
+import { LastSelection } from "@/components/atelier/LastSelection";
 import { Customization } from "@/components/atelier/Customization";
 import { CharacterSelection } from "@/components/atelier/CharacterSelection";
 import { Signature } from "@/components/atelier/Signature";
