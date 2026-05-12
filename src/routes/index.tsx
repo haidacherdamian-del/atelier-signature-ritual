@@ -144,8 +144,15 @@ function Atelier() {
             key="checkout"
             customer={order.customer}
             onUpdate={(customer) => update({ customer })}
-            onComplete={() => setStage("confirm")}
+            onComplete={() => setStage("payment")}
             onBack={() => setStage("reveal")}
+          />
+        )}
+        {stage === "payment" && (
+          <Payment
+            key="payment"
+            onComplete={() => setStage("confirm")}
+            onBack={() => setStage("checkout")}
           />
         )}
         {stage === "confirm" && <Confirmation key="confirm" order={order} onReset={reset} />}
