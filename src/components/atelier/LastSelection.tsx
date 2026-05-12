@@ -34,11 +34,14 @@ const OPTIONS: {
 export function LastSelection({
   onSelect,
   onBack,
+  model,
 }: {
   onSelect: (last: LastShape) => void;
   onBack?: () => void;
+  model?: ShoeModel | null;
 }) {
   const [selected, setSelected] = useState<Choice | null>(null);
+  const modelName = model ? MODEL_META[model].name : null;
 
   return (
     <motion.section
