@@ -61,7 +61,7 @@ function Atelier() {
       <AnimatePresence mode="wait">
         {stage === "idle" && <IdleScreen key="idle" onBegin={() => setStage("welcome")} />}
         {stage === "welcome" && <WelcomeTransition key="welcome" onContinue={() => setStage("scan")} />}
-        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("last")} />}
+        {stage === "scan" && <ScanningRitual key="scan" onComplete={() => setStage("last")} onBack={() => setStage("welcome")} />}
         {stage === "last" && (
           <LastSelection
             key="last"
@@ -69,6 +69,7 @@ function Atelier() {
               update({ last });
               setStage("model");
             }}
+            onBack={() => setStage("scan")}
           />
         )}
         {stage === "model" && (
@@ -78,6 +79,7 @@ function Atelier() {
               update({ model });
               setStage("customize");
             }}
+            onBack={() => setStage("last")}
           />
         )}
         {stage === "customize" && (
@@ -95,6 +97,7 @@ function Atelier() {
             order={order}
             onUpdate={update}
             onContinue={() => setStage("signature")}
+            onBack={() => setStage("customize")}
           />
         )}
         {stage === "signature" && (
@@ -103,6 +106,7 @@ function Atelier() {
             value={order.signature}
             onChange={(signature) => update({ signature })}
             onContinue={() => setStage("reveal")}
+            onBack={() => setStage("character")}
           />
         )}
         {stage === "reveal" && <CinematicReveal key="reveal" order={order} onContinue={() => setStage("checkout")} />}
