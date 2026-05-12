@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { BackButton } from "./BackButton";
 
 type Phase =
   | "left-prompt"
@@ -10,7 +11,7 @@ type Phase =
   | "right-done"
   | "final";
 
-export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
+export function ScanningRitual({ onComplete, onBack }: { onComplete: () => void; onBack?: () => void }) {
   const [phase, setPhase] = useState<Phase>("left-prompt");
 
   // Only the *scanning* phases auto-progress to "done" — everything else waits for tap.
@@ -100,6 +101,8 @@ export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center"
     >
+      {onBack && <BackButton onClick={onBack} />}
+
       {/* Top instruction */}
       <div className="absolute top-20 text-center px-8">
         <AnimatePresence mode="wait">
@@ -110,8 +113,13 @@ export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 1 }}
           >
-            <p className="text-gold-soft tracking-whisper mb-4">{current.eyebrow}</p>
-            <p className="font-display text-ivory text-4xl italic md:text-5xl">{current.title}</p>
+            <p className="tracking-whisper mb-4" style={{ color: "oklch(0.82 0.085 75)" }}>{current.eyebrow}</p>
+            <p
+              className="font-display text-4xl italic md:text-5xl"
+              style={{ color: "oklch(0.97 0.018 85)", textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}
+            >
+              {current.title}
+            </p>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -133,9 +141,13 @@ export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.8 }}
               onClick={current.onTap}
-              className="text-gold tracking-atelier hover:text-ivory transition-colors group"
+              className="group tracking-atelier transition-colors"
+              style={{ color: "oklch(0.86 0.10 78)" }}
             >
-              <span className="border-gold/40 border-b pb-2 group-hover:border-ivory/60">
+              <span
+                className="border-b pb-2 transition-colors"
+                style={{ borderColor: "oklch(0.86 0.10 78 / 0.55)" }}
+              >
                 {current.cta}
               </span>
             </motion.button>
@@ -146,7 +158,8 @@ export function ScanningRitual({ onComplete }: { onComplete: () => void }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-muted-foreground text-[0.6rem] tracking-[0.4em] uppercase"
+              className="text-[0.65rem] tracking-[0.4em] uppercase"
+              style={{ color: "oklch(0.7 0.02 70)" }}
             >
               · einen Moment ·
             </motion.p>
@@ -167,20 +180,31 @@ function FootScan({ side, state }: { side: "left" | "right"; state: FootState })
   return (
     <div className="relative">
       <motion.div
-        animate={{ opacity: state === "idle" ? 0.15 : state === "prompt" ? 0.55 : 1 }}
+        animate={{ opacity: state === "idle" ? 0.3 : state === "prompt" ? 0.7 : 1 }}
         transition={{ duration: 1.5 }}
         className="relative h-72 w-40 md:h-[26rem] md:w-60"
       >
         {/* Glowing outline guide */}
         {state === "prompt" && (
           <motion.div
-            animate={{ opacity: [0.3, 1, 0.3] }}
+            animate={{ opacity: [0.45, 1, 0.45] }}
             transition={{ duration: 2.4, repeat: Infinity }}
             className="absolute inset-0 rounded-[50%/40%]"
             style={{
               boxShadow:
-                "0 0 60px oklch(0.78 0.09 75 / 0.4), inset 0 0 40px oklch(0.78 0.09 75 / 0.2)",
-              border: "1px solid oklch(0.78 0.09 75 / 0.5)",
+                "0 0 70px oklch(0.85 0.10 78 / 0.5), inset 0 0 45px oklch(0.85 0.10 78 / 0.28)",
+              border: "1px solid oklch(0.85 0.10 78 / 0.65)",
+            }}
+          />
+        )}
+
+        {/* Ambient halo for scanning/complete */}
+        {(state === "scanning" || state === "complete") && (
+          <div
+            className="absolute -inset-6 -z-10 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, oklch(0.85 0.10 78 / 0.10) 0%, transparent 70%)",
             }}
           />
         )}
@@ -189,19 +213,19 @@ function FootScan({ side, state }: { side: "left" | "right"; state: FootState })
         <svg viewBox="0 0 200 400" className={`relative h-full w-full ${flip}`} fill="none">
           <defs>
             <linearGradient id={`grad-${side}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="oklch(0.78 0.09 75)" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="oklch(0.5 0.05 60)" stopOpacity="0.4" />
+              <stop offset="0%" stopColor="oklch(0.88 0.10 78)" stopOpacity="1" />
+              <stop offset="100%" stopColor="oklch(0.62 0.07 65)" stopOpacity="0.7" />
             </linearGradient>
           </defs>
           <motion.path
             d="M100 30 C 60 30, 50 80, 55 140 C 60 200, 50 260, 60 320 C 70 370, 130 370, 140 320 C 150 260, 140 200, 145 140 C 150 80, 140 30, 100 30 Z"
             stroke={`url(#grad-${side})`}
-            strokeWidth="1"
-            fill={state === "complete" ? "oklch(0.78 0.09 75 / 0.08)" : "transparent"}
+            strokeWidth="1.4"
+            fill={state === "complete" ? "oklch(0.85 0.10 78 / 0.12)" : "transparent"}
             initial={{ pathLength: 0 }}
             animate={{
-              pathLength: state === "idle" || state === "prompt" ? 0.3 : 1,
-              opacity: state === "complete" ? 1 : 0.7,
+              pathLength: state === "idle" || state === "prompt" ? 0.4 : 1,
+              opacity: state === "complete" ? 1 : 0.85,
             }}
             transition={{ duration: 2, ease: "easeInOut" }}
           />
@@ -213,8 +237,8 @@ function FootScan({ side, state }: { side: "left" | "right"; state: FootState })
                 cy={y}
                 rx={y < 60 ? 25 : y > 280 ? 38 : 45}
                 ry="6"
-                stroke="oklch(0.78 0.09 75 / 0.4)"
-                strokeWidth="0.5"
+                stroke="oklch(0.85 0.10 78 / 0.6)"
+                strokeWidth="0.7"
                 fill="none"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -232,14 +256,21 @@ function FootScan({ side, state }: { side: "left" | "right"; state: FootState })
             className="absolute inset-x-0 h-24"
             style={{
               background:
-                "linear-gradient(180deg, transparent, oklch(0.78 0.09 75 / 0.5), transparent)",
+                "linear-gradient(180deg, transparent, oklch(0.88 0.10 78 / 0.65), transparent)",
               filter: "blur(8px)",
             }}
           />
         )}
       </motion.div>
 
-      <div className="text-gold-soft mt-6 text-center tracking-[0.4em] text-[0.6rem] uppercase">
+      <div
+        className="mt-6 text-center tracking-[0.45em] text-[0.7rem] uppercase"
+        style={{
+          color: state === "idle" ? "oklch(0.6 0.02 70)" : "oklch(0.85 0.085 75)",
+          transition: "color 0.6s",
+          fontWeight: 400,
+        }}
+      >
         {side === "left" ? "Links" : "Rechts"}
       </div>
     </div>

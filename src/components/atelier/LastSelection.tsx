@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import type { LastShape } from "./types";
+import { BackButton } from "./BackButton";
 import lastClassic from "@/assets/last-classic.png";
 import lastSoft from "@/assets/last-soft.png";
 
@@ -31,8 +32,10 @@ const OPTIONS: {
 
 export function LastSelection({
   onSelect,
+  onBack,
 }: {
   onSelect: (last: LastShape) => void;
+  onBack?: () => void;
 }) {
   const [selected, setSelected] = useState<Choice | null>(null);
 
@@ -43,8 +46,9 @@ export function LastSelection({
       exit={{ opacity: 0 }}
       transition={{ duration: 1.4 }}
       className="absolute inset-0 flex flex-col items-center justify-center px-8"
-      style={{ background: "#0a0a0b" }}
+      style={{ background: "#0f0f10" }}
     >
+      {onBack && <BackButton onClick={onBack} />}
       {/* Cinematic ambient lighting */}
       <div
         className="absolute inset-0 pointer-events-none"

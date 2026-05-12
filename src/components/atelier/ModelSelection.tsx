@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { BackButton } from "./BackButton";
 import { MODEL_META, type ShoeModel } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
 import derby from "@/assets/shoe-derby.png";
@@ -15,7 +16,7 @@ const MODELS: { id: ShoeModel; img: string }[] = [
   { id: "sneaker", img: sneaker },
 ];
 
-export function ModelSelection({ onSelect }: { onSelect: (m: ShoeModel) => void }) {
+export function ModelSelection({ onSelect, onBack }: { onSelect: (m: ShoeModel) => void; onBack?: () => void }) {
   const [index, setIndex] = useState(0);
   const current = MODELS[index];
   const meta = MODEL_META[current.id];
@@ -31,6 +32,7 @@ export function ModelSelection({ onSelect }: { onSelect: (m: ShoeModel) => void 
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center"
     >
+      {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 spotlight" />
       <div className="absolute inset-0 vignette" />
 

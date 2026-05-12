@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { BackButton } from "./BackButton";
 import type { BespokeOrder, LastShape } from "./types";
 import { LAST_META, MODEL_META } from "./types";
 import oxford from "@/assets/shoe-oxford.png";
@@ -25,10 +26,12 @@ export function CharacterSelection({
   order,
   onUpdate,
   onContinue,
+  onBack,
 }: {
   order: BespokeOrder;
   onUpdate: (p: Partial<BespokeOrder>) => void;
   onContinue: () => void;
+  onBack?: () => void;
 }) {
   const [phase, setPhase] = useState<Phase>("silhouette");
   const img = order.model ? IMAGES[order.model] : oxford;
@@ -51,6 +54,7 @@ export function CharacterSelection({
       transition={{ duration: 1.5 }}
       className="absolute inset-0 flex flex-col items-center justify-center px-8"
     >
+      {onBack && <BackButton onClick={onBack} />}
       <div className="absolute inset-0 vignette pointer-events-none" />
       <div
         className="absolute inset-0 pointer-events-none"

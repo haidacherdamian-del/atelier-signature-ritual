@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { BackButton } from "./BackButton";
 import type { BespokeOrder } from "./types";
 import { COLOR_META, MODEL_META } from "./types";
 
@@ -127,6 +128,7 @@ export function Customization({
       transition={{ duration: 1.2 }}
       className="absolute inset-0 grid grid-rows-[auto_1fr_auto]"
     >
+      {onBack && <BackButton onClick={onBack} />}
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -362,16 +364,7 @@ export function Customization({
         </div>
 
         <div className="text-center mt-6 flex items-center justify-center gap-10">
-          {onBack && (
-            <button
-              onClick={onBack}
-              className="text-muted-foreground tracking-atelier hover:text-ivory transition-colors group"
-            >
-              <span className="border-transparent border-b pb-2 group-hover:border-ivory/40">
-                ← Modelle
-              </span>
-            </button>
-          )}
+
           <button
             onClick={onContinue}
             className="text-gold tracking-atelier hover:text-ivory transition-colors group"
