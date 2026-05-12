@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { BackButton } from "./BackButton";
 import type { Customer } from "./types";
 
@@ -14,13 +13,11 @@ export function Checkout({
   onComplete: () => void;
   onBack?: () => void;
 }) {
-  const [processing, setProcessing] = useState(false);
   const valid = customer.name && customer.email && customer.address;
 
-  const handlePay = () => {
+  const handleContinue = () => {
     if (!valid) return;
-    setProcessing(true);
-    setTimeout(onComplete, 2200);
+    onComplete();
   };
 
   return (
