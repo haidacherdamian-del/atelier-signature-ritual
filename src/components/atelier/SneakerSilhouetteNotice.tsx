@@ -50,7 +50,7 @@ export function SneakerSilhouetteNotice({
         className="font-display italic text-3xl md:text-5xl text-center max-w-3xl leading-[1.15]"
         style={{ color: "oklch(0.95 0.015 80)" }}
       >
-        Für unsere Sneaker wurde bewusst eine
+        Für dieses Modell wurde bewusst eine
         <br className="hidden md:block" /> einzige, perfekt ausbalancierte
         Silhouette definiert.
       </motion.p>
