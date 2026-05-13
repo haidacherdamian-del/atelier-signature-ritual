@@ -108,7 +108,17 @@ function Atelier() {
             onBack={() => setStage("model")}
           />
         )}
-        {stage === "finish" && (
+        {stage === "finish" && order.model === "oxford" && (
+          <OxfordFinishNotice
+            key="oxford-finish"
+            onContinue={() => {
+              update({ finish: "polished" });
+              setStage("customize");
+            }}
+            onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "finish" && order.model !== "oxford" && (
           <FinishSelection
             key="finish"
             onSelect={(choice) => {
