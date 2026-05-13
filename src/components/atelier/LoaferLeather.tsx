@@ -50,22 +50,10 @@ const VELOURS: Swatch[] = [
 
 const PALETTES: Record<LeatherKind, Swatch[]> = { calf: STANDARD, suede: VELOURS };
 
-const CARDS: {
-  id: LeatherKind;
-  title: string;
-  subtitle: string;
-}[] = [
-  {
-    id: "calf",
-    title: "Standard",
-    subtitle: "Weiches Kalbsleder für klassischen Komfort",
-  },
-  {
-    id: "suede",
-    title: "Velours",
-    subtitle: "Samtiges Veloursleder mit entspannter Eleganz",
-  },
-];
+const KIND_META: Record<LeatherKind, { title: string; subtitle: string }> = {
+  calf: { title: "Standard", subtitle: "Weiches Kalbsleder" },
+  suede: { title: "Velours", subtitle: "Samtiges Veloursleder" },
+};
 
 export function LoaferLeather({
   order,
@@ -90,180 +78,181 @@ export function LoaferLeather({
     onUpdate({ leather: k, color: PALETTES[k][0].id, finish: "polished" });
   };
 
+  // Suede absorbs more light, calf has sheen
+  const tonalWash = {
+    background: `radial-gradient(ellipse at 40% 40%, ${active.hex}cc, ${active.hex}55 60%, transparent 85%)`,
+    mixBlendMode: (kind === "suede" ? "multiply" : "soft-light") as "multiply" | "soft-light",
+    opacity: kind === "suede" ? 0.85 : 0.6,
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.2 }}
-      className="absolute inset-0 flex flex-col items-center justify-start pt-16 md:pt-20 pb-24 overflow-y-auto"
+      className="absolute inset-0 grid grid-rows-[auto_1fr_auto]"
     >
       {onBack && <BackButton onClick={onBack} />}
-      <div className="absolute inset-0 spotlight pointer-events-none" />
-      <div className="absolute inset-0 vignette pointer-events-none" />
 
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.4, delay: 0.15 }}
-        className="relative text-center px-8 mb-10 md:mb-12"
+        transition={{ duration: 1.2, delay: 0.2 }}
+        className="text-center pt-12 px-8"
       >
-        <p
-          className="text-[0.65rem] md:text-[0.7rem] tracking-[0.5em]"
-          style={{ color: "oklch(0.78 0.075 72)", fontWeight: 300 }}
-        >
-          DIE LEDERWELT
+        <p className="text-gold-soft tracking-whisper text-[0.65rem]">
+          — {KIND_META[kind].title} —
         </p>
-        <p
-          className="font-display italic text-3xl md:text-4xl mt-5"
-          style={{ color: "oklch(0.94 0.015 80)" }}
-        >
+        <h1 className="font-display text-ivory mt-3 text-2xl md:text-3xl italic">
           Wählen Sie Ihr Leder.
-        </p>
-        <p
-          className="mt-4 text-xs md:text-sm tracking-[0.18em] max-w-xl mx-auto"
-          style={{ color: "oklch(0.72 0.02 75 / 0.85)", fontWeight: 300 }}
-        >
-          Zwei Charaktere, ein bleibender Eindruck.
+        </h1>
+        <p className="text-muted-foreground mt-2 max-w-md mx-auto text-xs tracking-wide">
+          Loafer · <span className="text-gold-soft/80">{active.name}</span>
         </p>
       </motion.div>
 
-      {/* Two cards */}
-      <div className="relative w-full max-w-5xl px-8 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 mb-14 md:mb-16">
-        {CARDS.map((c, i) => {
-          const isSelected = kind === c.id;
-          return (
-            <motion.button
-              key={c.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              onClick={() => selectKind(c.id)}
-              className="group relative flex flex-col items-center text-center focus:outline-none p-8 md:p-10 rounded-[2px]"
+      {/* Stage — the loafer is always the hero */}
+      <div className="relative flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, oklch(0.78 0.09 75 / 0.10) 0%, transparent 60%)",
+          }}
+        />
+
+        <div className="relative max-h-[55vh] max-w-[78%]">
+          <img
+            src={loafer}
+            alt="Loafer"
+            className="block max-h-[55vh] max-w-full object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.7)]"
+          />
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${kind}-${active.id}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: tonalWash.opacity }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 pointer-events-none"
               style={{
-                background:
-                  "linear-gradient(180deg, oklch(0.16 0.01 60 / 0.55) 0%, oklch(0.10 0.01 60 / 0.35) 100%)",
+                background: tonalWash.background,
+                mixBlendMode: tonalWash.mixBlendMode,
+                WebkitMaskImage: `url(${loafer})`,
+                maskImage: `url(${loafer})`,
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
               }}
-            >
-              <motion.div
-                className="absolute inset-0 -z-10 rounded-[2px]"
-                animate={{
-                  boxShadow: isSelected
-                    ? "0 0 40px oklch(0.78 0.10 75 / 0.30), inset 0 0 0 1px oklch(0.85 0.10 78 / 0.85)"
-                    : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.10)",
-                }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              />
-
-              <p
-                className="text-[0.6rem] tracking-[0.5em] mb-4"
-                style={{
-                  color: isSelected ? "oklch(0.88 0.10 78)" : "oklch(0.78 0.075 72 / 0.7)",
-                  fontWeight: 300,
-                }}
-              >
-                {isSelected ? "AUSGEWÄHLT" : "AUSWÄHLEN"}
-              </p>
-              <p
-                className="font-display italic text-3xl md:text-4xl"
-                style={{ color: "oklch(0.95 0.015 80)" }}
-              >
-                {c.title}
-              </p>
-              <p
-                className="mt-4 text-xs md:text-sm tracking-[0.14em] max-w-xs mx-auto leading-relaxed"
-                style={{ color: "oklch(0.74 0.02 75 / 0.9)", fontWeight: 300 }}
-              >
-                {c.subtitle}
-              </p>
-
-              <div className="pt-5 flex justify-center">
-                <motion.div
-                  className="h-px"
-                  animate={{
-                    width: isSelected ? 64 : 18,
-                    backgroundColor: isSelected
-                      ? "oklch(0.85 0.10 78)"
-                      : "oklch(0.78 0.075 72 / 0.35)",
-                  }}
-                  transition={{ duration: 0.8 }}
-                />
-              </div>
-            </motion.button>
-          );
-        })}
+            />
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Color grid */}
-      <div className="relative w-full max-w-4xl px-6 md:px-10">
-        <p
-          className="text-center text-[0.6rem] tracking-[0.5em] mb-8"
-          style={{ color: "oklch(0.78 0.075 72)", fontWeight: 300 }}
-        >
-          — TONALITÄT —
-        </p>
+      {/* Atelier rail — leather kind toggle + color tiles */}
+      <div className="pb-10 px-6 md:px-12">
+        {/* Kind toggle */}
+        <div className="flex justify-center gap-8 md:gap-12 mb-8">
+          {(Object.keys(KIND_META) as LeatherKind[]).map((k) => {
+            const selected = kind === k;
+            const meta = KIND_META[k];
+            return (
+              <motion.button
+                key={k}
+                onClick={() => selectKind(k)}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.4 }}
+                className="group relative flex flex-col items-center"
+              >
+                <motion.div
+                  animate={{
+                    boxShadow: selected
+                      ? "0 0 26px oklch(0.78 0.09 75 / 0.32), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.75)"
+                      : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.12)",
+                  }}
+                  transition={{ duration: 0.5 }}
+                  className="h-16 w-28 md:h-20 md:w-32 rounded-[2px] overflow-hidden"
+                  style={{
+                    backgroundImage:
+                      k === "calf"
+                        ? calfTexture("#3a2014")
+                        : suedeTexture("#5a3a20"),
+                  }}
+                />
+                <span
+                  className={`mt-4 font-display italic text-[0.85rem] transition-colors ${
+                    selected ? "text-gold" : "text-ivory/85 group-hover:text-gold-soft"
+                  }`}
+                >
+                  {meta.title}
+                </span>
+                <span className="text-gold-soft/60 tracking-[0.25em] uppercase text-[0.55rem] mt-1.5">
+                  {meta.subtitle}
+                </span>
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Tone tiles */}
         <AnimatePresence mode="wait">
           <motion.div
             key={kind}
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center gap-5 md:gap-7 flex-wrap"
+            transition={{ duration: 0.5 }}
+            className="flex justify-center gap-3 md:gap-5 flex-wrap mb-8"
           >
-            {palette.map((s) => {
-              const selected = s.id === active.id;
+            {palette.map((tone) => {
+              const selected = tone.id === active.id;
               return (
                 <motion.button
-                  key={s.id}
-                  onClick={() => onUpdate({ color: s.id })}
+                  key={tone.id}
+                  onClick={() => onUpdate({ color: tone.id })}
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.4 }}
                   className="group flex flex-col items-center"
                 >
                   <motion.div
                     animate={{
-                      scale: selected ? 1.08 : 1,
+                      scale: selected ? 1.06 : 1,
                       boxShadow: selected
-                        ? "0 0 28px oklch(0.78 0.09 75 / 0.5), inset 0 0 0 1px oklch(0.85 0.10 78 / 0.95)"
-                        : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.18)",
+                        ? "0 0 28px oklch(0.78 0.09 75 / 0.5), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.9)"
+                        : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.2)",
                     }}
                     transition={{ duration: 0.5 }}
-                    className="h-12 w-12 md:h-14 md:w-14 rounded-full overflow-hidden"
-                    style={{ backgroundImage: s.texture }}
+                    className="h-10 w-16 md:h-12 md:w-20 rounded-[3px] overflow-hidden"
+                    style={{ backgroundImage: tone.texture }}
                   />
                   <span
-                    className={`mt-3 font-display italic text-[0.78rem] transition-colors ${
+                    className={`mt-2 font-display italic text-[0.72rem] transition-colors ${
                       selected ? "text-gold" : "text-ivory/80 group-hover:text-gold-soft"
                     }`}
                   >
-                    {s.name}
+                    {tone.name}
                   </span>
                 </motion.button>
               );
             })}
           </motion.div>
         </AnimatePresence>
-      </div>
 
-      {/* Continue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="mt-14 md:mt-16"
-      >
-        <button
-          onClick={onContinue}
-          className="group tracking-[0.5em] text-[0.7rem]"
-          style={{ color: "oklch(0.88 0.10 78)", fontWeight: 300 }}
-        >
-          <span className="border-b pb-2" style={{ borderColor: "oklch(0.78 0.075 72 / 0.45)" }}>
-            FORTFAHREN
-          </span>
-        </button>
-      </motion.div>
+        <div className="text-center">
+          <button
+            onClick={onContinue}
+            className="text-gold tracking-atelier text-sm hover:text-ivory transition-colors"
+          >
+            <span className="border-gold/40 border-b pb-2">Fortfahren</span>
+          </button>
+        </div>
+      </div>
     </motion.section>
   );
 }
