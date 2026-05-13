@@ -71,19 +71,19 @@ const TEXTURE_FOR: Record<PatinaTechnique | "standard", (hex: string) => string>
 };
 
 const STANDARD_TONES: Tone[] = [
-  { id: "black", name: "Black", whisper: "Seidiges Schwarz", hex: "#0d0b0a", texture: calfTexture("#0d0b0a") },
-  { id: "dark-brown", name: "Dark Brown", whisper: "Espresso", hex: "#1f140d", texture: calfTexture("#1f140d") },
-  { id: "medium-brown", name: "Medium Brown", whisper: "Cognac-Holz", hex: "#5a3220", texture: calfTexture("#5a3220") },
-  { id: "cognac", name: "Cognac", whisper: "Saddle Amber", hex: "#8a4a1e", texture: calfTexture("#8a4a1e") },
-  { id: "light-brown", name: "Light Brown", whisper: "Sandiges Taupe", hex: "#a07a55", texture: calfTexture("#a07a55") },
-  { id: "mustard", name: "Mustard", whisper: "Karamellgold", hex: "#a67828", texture: calfTexture("#a67828") },
-  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#3a1418", texture: calfTexture("#3a1418") },
-  { id: "red", name: "Red", whisper: "Tiefes Crimson", hex: "#5a161a", texture: calfTexture("#5a161a") },
-  { id: "forest", name: "Forest", whisper: "Tiefes Laub", hex: "#1c2a22", texture: calfTexture("#1c2a22") },
-  { id: "olive", name: "Olive", whisper: "Erdiges Militär", hex: "#3d3c25", texture: calfTexture("#3d3c25") },
-  { id: "grey", name: "Grey", whisper: "Graphit", hex: "#4a4a4d", texture: calfTexture("#4a4a4d") },
-  { id: "dark-blue", name: "Dark Blue", whisper: "Mitternacht", hex: "#11161f", texture: calfTexture("#11161f") },
-  { id: "navy", name: "Navy", whisper: "Marine", hex: "#162238", texture: calfTexture("#162238") },
+  { id: "black", name: "Black", whisper: "Seidiges Schwarz", hex: "#0a0908", texture: calfTexture("#0a0908") },
+  { id: "dark-brown", name: "Dark Brown", whisper: "Espresso", hex: "#2a170c", texture: calfTexture("#2a170c") },
+  { id: "medium-brown", name: "Medium Brown", whisper: "Warmes Mahagoni", hex: "#6e3a22", texture: calfTexture("#6e3a22") },
+  { id: "cognac", name: "Cognac", whisper: "Saddle Amber", hex: "#9a5224", texture: calfTexture("#9a5224") },
+  { id: "light-brown", name: "Light Brown", whisper: "Sandiges Taupe", hex: "#b08a64", texture: calfTexture("#b08a64") },
+  { id: "mustard", name: "Mustard", whisper: "Weiches Senf-Karamell", hex: "#b07a2c", texture: calfTexture("#b07a2c") },
+  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#3e1418", texture: calfTexture("#3e1418") },
+  { id: "red", name: "Red", whisper: "Tiefes Lederrot", hex: "#6a1c1f", texture: calfTexture("#6a1c1f") },
+  { id: "forest", name: "Forest", whisper: "Tiefes Waldgrün", hex: "#1f3326", texture: calfTexture("#1f3326") },
+  { id: "olive", name: "Olive", whisper: "Erdiges Olivgrün", hex: "#4a4626", texture: calfTexture("#4a4626") },
+  { id: "grey", name: "Grey", whisper: "Seidiges Graphit", hex: "#6a6a6c", texture: calfTexture("#6a6a6c") },
+  { id: "dark-blue", name: "Dark Blue", whisper: "Mitternacht", hex: "#0e1420", texture: calfTexture("#0e1420") },
+  { id: "navy", name: "Navy", whisper: "Marine", hex: "#1c2c4a", texture: calfTexture("#1c2c4a") },
 ];
 
 const PATINA_TECHNIQUES: {
