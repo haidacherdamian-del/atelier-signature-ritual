@@ -40,14 +40,18 @@ type Tone = {
 // Reusable grain layers — give every tile organic, tactile depth.
 // Combined with the tone's hex base they read as cropped macro leather.
 const GRAIN_FINE =
-  "repeating-radial-gradient(circle at 18% 22%, rgba(255,235,200,0.05) 0 1px, transparent 1px 3px)";
+  "repeating-radial-gradient(circle at 22% 28%, rgba(255,235,200,0.035) 0 1px, transparent 1px 4px)";
 const GRAIN_PORES =
-  "radial-gradient(circle at 70% 30%, rgba(0,0,0,0.35), transparent 55%), radial-gradient(circle at 25% 75%, rgba(0,0,0,0.4), transparent 60%)";
+  "radial-gradient(circle at 72% 28%, rgba(0,0,0,0.28), transparent 58%), radial-gradient(circle at 22% 78%, rgba(0,0,0,0.32), transparent 62%)";
 const SHEEN =
-  "linear-gradient(135deg, rgba(255,230,190,0.16) 0%, rgba(255,230,190,0) 35%, rgba(0,0,0,0.25) 100%)";
+  "linear-gradient(135deg, rgba(255,235,205,0.10) 0%, rgba(255,235,205,0) 38%, rgba(0,0,0,0.22) 100%)";
+const CLOUDING =
+  "radial-gradient(ellipse 60% 45% at 30% 35%, rgba(255,235,205,0.07), transparent 65%), radial-gradient(ellipse 50% 40% at 75% 70%, rgba(0,0,0,0.22), transparent 70%)";
 
+// Photographed full-grain leather: soft sheen, organic clouding, fine pores,
+// subtle vignette so the tone reads pigmented and dimensional rather than flat.
 const calfTexture = (hex: string) =>
-  `${SHEEN}, ${GRAIN_PORES}, ${GRAIN_FINE}, radial-gradient(ellipse at 40% 35%, ${hex}ee, ${hex} 70%)`;
+  `${SHEEN}, ${CLOUDING}, ${GRAIN_PORES}, ${GRAIN_FINE}, radial-gradient(ellipse at 42% 38%, ${hex} 0%, ${hex} 55%, ${hex}dd 80%, ${hex}aa 100%)`;
 
 const marbleTexture = (hex: string) =>
   `${SHEEN}, repeating-linear-gradient(118deg, rgba(255,240,210,0.10) 0 1px, transparent 1px 6px, rgba(0,0,0,0.18) 6px 7px, transparent 7px 14px), radial-gradient(ellipse at 25% 30%, rgba(255,220,170,0.18), transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(0,0,0,0.5), transparent 60%), linear-gradient(140deg, ${hex} 0%, #0a0604 100%)`;
@@ -67,21 +71,19 @@ const TEXTURE_FOR: Record<PatinaTechnique | "standard", (hex: string) => string>
 };
 
 const STANDARD_TONES: Tone[] = [
-  { id: "black", name: "Black", whisper: "Tiefe Nacht", hex: "#0a0807", texture: calfTexture("#0a0807") },
-  { id: "grey", name: "Grey", whisper: "Stein im Nebel", hex: "#5a5a5a", texture: calfTexture("#5a5a5a") },
-  { id: "dark-brown", name: "Dark Brown", whisper: "Erdene Tiefe", hex: "#2a1a10", texture: calfTexture("#2a1a10") },
-  { id: "medium-brown", name: "Medium Brown", whisper: "Warmes Holz", hex: "#5a3820", texture: calfTexture("#5a3820") },
-  { id: "syrup", name: "Syrup", whisper: "Dunkler Sirup", hex: "#3e2410", texture: calfTexture("#3e2410") },
-  { id: "cognac", name: "Cognac", whisper: "Warmes Licht", hex: "#7a3e1a", texture: calfTexture("#7a3e1a") },
-  { id: "saffron", name: "Saffron", whisper: "Goldene Glut", hex: "#a55a1c", texture: calfTexture("#a55a1c") },
-  { id: "light-brown", name: "Light Brown", whisper: "Sandige Wärme", hex: "#9a6a3e", texture: calfTexture("#9a6a3e") },
-  { id: "oxblood", name: "Oxblood", whisper: "Edler Wein", hex: "#3d1014", texture: calfTexture("#3d1014") },
-  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#4a0c1c", texture: calfTexture("#4a0c1c") },
-  { id: "red", name: "Red", whisper: "Couture Rot", hex: "#7a1018", texture: calfTexture("#7a1018") },
-  { id: "forest-green", name: "Forest Green", whisper: "Tiefes Laub", hex: "#1a2e1c", texture: calfTexture("#1a2e1c") },
-  { id: "olive", name: "Olive", whisper: "Ruhige Erde", hex: "#3a3a1f", texture: calfTexture("#3a3a1f") },
-  { id: "navy", name: "Navy", whisper: "Mitternachtsmeer", hex: "#0e1a30", texture: calfTexture("#0e1a30") },
-  { id: "medium-navy", name: "Medium Navy", whisper: "Indigo bei Tag", hex: "#1e2e4a", texture: calfTexture("#1e2e4a") },
+  { id: "black", name: "Black", whisper: "Seidiges Schwarz", hex: "#0d0b0a", texture: calfTexture("#0d0b0a") },
+  { id: "dark-brown", name: "Dark Brown", whisper: "Espresso", hex: "#1f140d", texture: calfTexture("#1f140d") },
+  { id: "medium-brown", name: "Medium Brown", whisper: "Cognac-Holz", hex: "#5a3220", texture: calfTexture("#5a3220") },
+  { id: "cognac", name: "Cognac", whisper: "Saddle Amber", hex: "#8a4a1e", texture: calfTexture("#8a4a1e") },
+  { id: "light-brown", name: "Light Brown", whisper: "Sandiges Taupe", hex: "#a07a55", texture: calfTexture("#a07a55") },
+  { id: "mustard", name: "Mustard", whisper: "Karamellgold", hex: "#a67828", texture: calfTexture("#a67828") },
+  { id: "burgundy", name: "Burgundy", whisper: "Reifer Bordeaux", hex: "#3a1418", texture: calfTexture("#3a1418") },
+  { id: "red", name: "Red", whisper: "Tiefes Crimson", hex: "#5a161a", texture: calfTexture("#5a161a") },
+  { id: "forest", name: "Forest", whisper: "Tiefes Laub", hex: "#1c2a22", texture: calfTexture("#1c2a22") },
+  { id: "olive", name: "Olive", whisper: "Erdiges Militär", hex: "#3d3c25", texture: calfTexture("#3d3c25") },
+  { id: "grey", name: "Grey", whisper: "Graphit", hex: "#4a4a4d", texture: calfTexture("#4a4a4d") },
+  { id: "dark-blue", name: "Dark Blue", whisper: "Mitternacht", hex: "#11161f", texture: calfTexture("#11161f") },
+  { id: "navy", name: "Navy", whisper: "Marine", hex: "#162238", texture: calfTexture("#162238") },
 ];
 
 const PATINA_TECHNIQUES: {
@@ -322,7 +324,7 @@ export function Customization({
         )}
 
         {/* Tone tiles — leather macro swatches */}
-        <div className="flex justify-center gap-3 md:gap-5 flex-wrap mb-8">
+        <div className="flex justify-center gap-6 md:gap-9 flex-wrap mb-10 max-w-5xl mx-auto px-4">
           {palette.map((tone) => {
             const selected = tone.id === activeToneId;
             return (
@@ -332,27 +334,42 @@ export function Customization({
                   if (isPatina) onUpdate({ patinaColor: tone.id });
                   else onUpdate({ color: tone.id as BespokeOrder["color"] });
                 }}
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.4 }}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="group flex flex-col items-center"
               >
-                <motion.div
-                  animate={{
-                    scale: selected ? 1.06 : 1,
-                    boxShadow: selected
-                      ? "0 0 28px oklch(0.78 0.09 75 / 0.5), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.9)"
-                      : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.2)",
-                  }}
-                  transition={{ duration: 0.5 }}
-                  className="h-10 w-16 md:h-12 md:w-20 rounded-[3px] overflow-hidden"
-                  style={{ backgroundImage: tone.texture }}
-                />
+                <div className="relative">
+                  {/* soft outer glow on selection */}
+                  <motion.div
+                    animate={{ opacity: selected ? 1 : 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute -inset-2 rounded-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle, oklch(0.78 0.09 75 / 0.25), transparent 70%)",
+                    }}
+                  />
+                  <motion.div
+                    animate={{
+                      scale: selected ? 1.04 : 1,
+                      boxShadow: selected
+                        ? "inset 0 0 0 1px oklch(0.82 0.10 78 / 0.95), inset 0 0 22px rgba(0,0,0,0.4)"
+                        : "inset 0 0 0 1px rgba(255,240,210,0.10), inset 0 0 18px rgba(0,0,0,0.45)",
+                    }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative h-16 w-16 md:h-20 md:w-20 rounded-full overflow-hidden"
+                    style={{ backgroundImage: tone.texture, backgroundSize: "cover" }}
+                  />
+                </div>
                 <span
-                  className={`mt-2 font-display italic text-[0.72rem] transition-colors ${
-                    selected ? "text-gold" : "text-ivory/80 group-hover:text-gold-soft"
+                  className={`mt-4 font-display italic text-[0.82rem] tracking-[0.04em] transition-colors duration-500 ${
+                    selected ? "text-gold" : "text-ivory/75 group-hover:text-gold-soft"
                   }`}
                 >
                   {tone.name}
+                </span>
+                <span className="mt-1 text-ivory/35 tracking-[0.22em] uppercase text-[0.5rem]">
+                  {tone.whisper}
                 </span>
               </motion.button>
             );
