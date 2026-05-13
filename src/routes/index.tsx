@@ -119,7 +119,16 @@ function Atelier() {
             }
           />
         )}
-        {stage === "customize" && (
+        {stage === "customize" && order.model === "loafer" && (
+          <LoaferLeather
+            key="loafer-leather"
+            order={order}
+            onUpdate={update}
+            onContinue={() => setStage("signature")}
+            onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "customize" && order.model !== "loafer" && (
           <Customization
             key="customize"
             order={order}
