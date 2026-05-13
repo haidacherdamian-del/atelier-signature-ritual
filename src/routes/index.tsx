@@ -9,6 +9,7 @@ import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
 import { SneakerSilhouetteNotice } from "@/components/atelier/SneakerSilhouetteNotice";
 import { Customization } from "@/components/atelier/Customization";
+import { LoaferLeather } from "@/components/atelier/LoaferLeather";
 
 import { Signature } from "@/components/atelier/Signature";
 import { CinematicReveal } from "@/components/atelier/CinematicReveal";
@@ -118,7 +119,16 @@ function Atelier() {
             }
           />
         )}
-        {stage === "customize" && (
+        {stage === "customize" && order.model === "loafer" && (
+          <LoaferLeather
+            key="loafer-leather"
+            order={order}
+            onUpdate={update}
+            onContinue={() => setStage("signature")}
+            onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "customize" && order.model !== "loafer" && (
           <Customization
             key="customize"
             order={order}
