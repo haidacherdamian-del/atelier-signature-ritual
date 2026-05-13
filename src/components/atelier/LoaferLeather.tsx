@@ -170,6 +170,13 @@ export function LoaferLeather({
                 transition={{ duration: 0.4 }}
                 className="group relative flex flex-col items-center"
               >
+                <span
+                  className={`mb-3 tracking-[0.3em] uppercase text-[0.55rem] transition-colors ${
+                    selected ? "text-gold" : "text-ivory/45"
+                  }`}
+                >
+                  {selected ? "Ausgewählt" : "Auswählen"}
+                </span>
                 <motion.div
                   animate={{
                     boxShadow: selected
