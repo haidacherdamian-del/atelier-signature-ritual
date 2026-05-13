@@ -25,34 +25,34 @@ const suedeTexture = (hex: string) =>
 
 // ─── Standard (Calf) palette ────────────────────────────────────
 const STANDARD: Swatch[] = [
-  { id: "roberto", name: "Roberto", hex: "#1a1310", texture: calfTexture("#1a1310") },
-  { id: "fabio", name: "Fabio", hex: "#3a2014", texture: calfTexture("#3a2014") },
+  { id: "roberto", name: "Roberto", hex: "#ece2d0", texture: calfTexture("#ece2d0") },
+  { id: "fabio", name: "Fabio", hex: "#7a4422", texture: calfTexture("#7a4422") },
   { id: "giovanni", name: "Giovanni", hex: "#5a3018", texture: calfTexture("#5a3018") },
-  { id: "carlo", name: "Carlo", hex: "#7a4220", texture: calfTexture("#7a4220") },
-  { id: "paolo", name: "Paolo", hex: "#9a6a3e", texture: calfTexture("#9a6a3e") },
-  { id: "andrea", name: "Andrea", hex: "#3d1014", texture: calfTexture("#3d1014") },
-  { id: "alessio", name: "Alessio", hex: "#0e1a30", texture: calfTexture("#0e1a30") },
+  { id: "carlo", name: "Carlo", hex: "#2a160c", texture: calfTexture("#2a160c") },
+  { id: "paolo", name: "Paolo", hex: "#3d1014", texture: calfTexture("#3d1014") },
+  { id: "andrea", name: "Andrea", hex: "#0e1a30", texture: calfTexture("#0e1a30") },
+  { id: "alessio", name: "Alessio", hex: "#070b18", texture: calfTexture("#070b18") },
 ];
 
 // ─── Velours (Suede) palette ────────────────────────────────────
 const VELOURS: Swatch[] = [
-  { id: "gastone", name: "Gastone", hex: "#6a4a2c", texture: suedeTexture("#6a4a2c") },
-  { id: "udinesi", name: "Udinesi", hex: "#3a2818", texture: suedeTexture("#3a2818") },
-  { id: "cociarelli", name: "Cociarelli", hex: "#8a5a30", texture: suedeTexture("#8a5a30") },
-  { id: "fausto", name: "Fausto", hex: "#5a3a20", texture: suedeTexture("#5a3a20") },
-  { id: "arrigo", name: "Arrigo", hex: "#4a1a1c", texture: suedeTexture("#4a1a1c") },
-  { id: "attilio", name: "Attilio", hex: "#1a2e3a", texture: suedeTexture("#1a2e3a") },
-  { id: "nero", name: "Nero", hex: "#0a0807", texture: suedeTexture("#0a0807") },
-  { id: "calcolo", name: "Calcolo", hex: "#5a5a5a", texture: suedeTexture("#5a5a5a") },
-  { id: "ruggero", name: "Ruggero", hex: "#7a2a18", texture: suedeTexture("#7a2a18") },
-  { id: "gabino", name: "Gabino", hex: "#3a3a1f", texture: suedeTexture("#3a3a1f") },
+  { id: "gastone", name: "Gastone", hex: "#3a2014", texture: suedeTexture("#3a2014") },
+  { id: "udinesi", name: "Udinesi", hex: "#0e1a30", texture: suedeTexture("#0e1a30") },
+  { id: "cociarelli", name: "Cociarelli", hex: "#c9b596", texture: suedeTexture("#c9b596") },
+  { id: "fausto", name: "Fausto", hex: "#4a1a1c", texture: suedeTexture("#4a1a1c") },
+  { id: "arrigo", name: "Arrigo", hex: "#7a4422", texture: suedeTexture("#7a4422") },
+  { id: "attilio", name: "Attilio", hex: "#6a5a4a", texture: suedeTexture("#6a5a4a") },
+  { id: "nero", name: "Nero", hex: "#1a1715", texture: suedeTexture("#1a1715") },
+  { id: "calcolo", name: "Calcolo", hex: "#9a9690", texture: suedeTexture("#9a9690") },
+  { id: "ruggero", name: "Ruggero", hex: "#4a4a25", texture: suedeTexture("#4a4a25") },
+  { id: "gabino", name: "Gabino", hex: "#6a6865", texture: suedeTexture("#6a6865") },
 ];
 
 const PALETTES: Record<LeatherKind, Swatch[]> = { calf: STANDARD, suede: VELOURS };
 
 const KIND_META: Record<LeatherKind, { title: string; subtitle: string }> = {
-  calf: { title: "Standard", subtitle: "Weiches Kalbsleder" },
-  suede: { title: "Velours", subtitle: "Samtiges Veloursleder" },
+  calf: { title: "Standard Leder", subtitle: "Weiches Kalbsleder für klassischen Komfort" },
+  suede: { title: "Velours", subtitle: "Samtiges Veloursleder mit entspannter Eleganz" },
 };
 
 export function LoaferLeather({
@@ -170,6 +170,13 @@ export function LoaferLeather({
                 transition={{ duration: 0.4 }}
                 className="group relative flex flex-col items-center"
               >
+                <span
+                  className={`mb-3 tracking-[0.3em] uppercase text-[0.55rem] transition-colors ${
+                    selected ? "text-gold" : "text-ivory/45"
+                  }`}
+                >
+                  {selected ? "Ausgewählt" : "Auswählen"}
+                </span>
                 <motion.div
                   animate={{
                     boxShadow: selected
