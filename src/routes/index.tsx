@@ -125,7 +125,7 @@ function Atelier() {
             order={order}
             onUpdate={update}
             onContinue={() => setStage("signature")}
-            onBack={() => setStage("last")}
+            onBack={() => setStage("sneakerNotice")}
           />
         )}
         {stage === "customize" && order.model !== "loafer" && (
