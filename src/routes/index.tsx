@@ -7,6 +7,7 @@ import { ScanningRitual } from "@/components/atelier/ScanningRitual";
 import { ModelSelection } from "@/components/atelier/ModelSelection";
 import { LastSelection } from "@/components/atelier/LastSelection";
 import { FinishSelection } from "@/components/atelier/FinishSelection";
+import { OxfordFinishNotice } from "@/components/atelier/OxfordFinishNotice";
 import { SneakerSilhouetteNotice } from "@/components/atelier/SneakerSilhouetteNotice";
 import { Customization } from "@/components/atelier/Customization";
 import { LoaferLeather } from "@/components/atelier/LoaferLeather";
@@ -107,7 +108,17 @@ function Atelier() {
             onBack={() => setStage("model")}
           />
         )}
-        {stage === "finish" && (
+        {stage === "finish" && order.model === "oxford" && (
+          <OxfordFinishNotice
+            key="oxford-finish"
+            onContinue={() => {
+              update({ finish: "polished" });
+              setStage("customize");
+            }}
+            onBack={() => setStage("last")}
+          />
+        )}
+        {stage === "finish" && order.model !== "oxford" && (
           <FinishSelection
             key="finish"
             onSelect={(choice) => {
