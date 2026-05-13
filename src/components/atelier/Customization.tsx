@@ -324,7 +324,7 @@ export function Customization({
         )}
 
         {/* Tone tiles — leather macro swatches */}
-        <div className="flex justify-center gap-3 md:gap-5 flex-wrap mb-8">
+        <div className="flex justify-center gap-6 md:gap-9 flex-wrap mb-10 max-w-5xl mx-auto px-4">
           {palette.map((tone) => {
             const selected = tone.id === activeToneId;
             return (
@@ -334,27 +334,42 @@ export function Customization({
                   if (isPatina) onUpdate({ patinaColor: tone.id });
                   else onUpdate({ color: tone.id as BespokeOrder["color"] });
                 }}
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.4 }}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="group flex flex-col items-center"
               >
-                <motion.div
-                  animate={{
-                    scale: selected ? 1.06 : 1,
-                    boxShadow: selected
-                      ? "0 0 28px oklch(0.78 0.09 75 / 0.5), inset 0 0 0 1px oklch(0.78 0.09 75 / 0.9)"
-                      : "inset 0 0 0 1px oklch(0.92 0.01 80 / 0.2)",
-                  }}
-                  transition={{ duration: 0.5 }}
-                  className="h-10 w-16 md:h-12 md:w-20 rounded-[3px] overflow-hidden"
-                  style={{ backgroundImage: tone.texture }}
-                />
+                <div className="relative">
+                  {/* soft outer glow on selection */}
+                  <motion.div
+                    animate={{ opacity: selected ? 1 : 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute -inset-2 rounded-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle, oklch(0.78 0.09 75 / 0.25), transparent 70%)",
+                    }}
+                  />
+                  <motion.div
+                    animate={{
+                      scale: selected ? 1.04 : 1,
+                      boxShadow: selected
+                        ? "inset 0 0 0 1px oklch(0.82 0.10 78 / 0.95), inset 0 0 22px rgba(0,0,0,0.4)"
+                        : "inset 0 0 0 1px rgba(255,240,210,0.10), inset 0 0 18px rgba(0,0,0,0.45)",
+                    }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative h-16 w-16 md:h-20 md:w-20 rounded-full overflow-hidden"
+                    style={{ backgroundImage: tone.texture, backgroundSize: "cover" }}
+                  />
+                </div>
                 <span
-                  className={`mt-2 font-display italic text-[0.72rem] transition-colors ${
-                    selected ? "text-gold" : "text-ivory/80 group-hover:text-gold-soft"
+                  className={`mt-4 font-display italic text-[0.82rem] tracking-[0.04em] transition-colors duration-500 ${
+                    selected ? "text-gold" : "text-ivory/75 group-hover:text-gold-soft"
                   }`}
                 >
                   {tone.name}
+                </span>
+                <span className="mt-1 text-ivory/35 tracking-[0.22em] uppercase text-[0.5rem]">
+                  {tone.whisper}
                 </span>
               </motion.button>
             );
