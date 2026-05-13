@@ -40,14 +40,18 @@ type Tone = {
 // Reusable grain layers — give every tile organic, tactile depth.
 // Combined with the tone's hex base they read as cropped macro leather.
 const GRAIN_FINE =
-  "repeating-radial-gradient(circle at 18% 22%, rgba(255,235,200,0.05) 0 1px, transparent 1px 3px)";
+  "repeating-radial-gradient(circle at 22% 28%, rgba(255,235,200,0.035) 0 1px, transparent 1px 4px)";
 const GRAIN_PORES =
-  "radial-gradient(circle at 70% 30%, rgba(0,0,0,0.35), transparent 55%), radial-gradient(circle at 25% 75%, rgba(0,0,0,0.4), transparent 60%)";
+  "radial-gradient(circle at 72% 28%, rgba(0,0,0,0.28), transparent 58%), radial-gradient(circle at 22% 78%, rgba(0,0,0,0.32), transparent 62%)";
 const SHEEN =
-  "linear-gradient(135deg, rgba(255,230,190,0.16) 0%, rgba(255,230,190,0) 35%, rgba(0,0,0,0.25) 100%)";
+  "linear-gradient(135deg, rgba(255,235,205,0.10) 0%, rgba(255,235,205,0) 38%, rgba(0,0,0,0.22) 100%)";
+const CLOUDING =
+  "radial-gradient(ellipse 60% 45% at 30% 35%, rgba(255,235,205,0.07), transparent 65%), radial-gradient(ellipse 50% 40% at 75% 70%, rgba(0,0,0,0.22), transparent 70%)";
 
+// Photographed full-grain leather: soft sheen, organic clouding, fine pores,
+// subtle vignette so the tone reads pigmented and dimensional rather than flat.
 const calfTexture = (hex: string) =>
-  `${SHEEN}, ${GRAIN_PORES}, ${GRAIN_FINE}, radial-gradient(ellipse at 40% 35%, ${hex}ee, ${hex} 70%)`;
+  `${SHEEN}, ${CLOUDING}, ${GRAIN_PORES}, ${GRAIN_FINE}, radial-gradient(ellipse at 42% 38%, ${hex} 0%, ${hex} 55%, ${hex}dd 80%, ${hex}aa 100%)`;
 
 const marbleTexture = (hex: string) =>
   `${SHEEN}, repeating-linear-gradient(118deg, rgba(255,240,210,0.10) 0 1px, transparent 1px 6px, rgba(0,0,0,0.18) 6px 7px, transparent 7px 14px), radial-gradient(ellipse at 25% 30%, rgba(255,220,170,0.18), transparent 55%), radial-gradient(ellipse at 70% 70%, rgba(0,0,0,0.5), transparent 60%), linear-gradient(140deg, ${hex} 0%, #0a0604 100%)`;
