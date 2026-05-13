@@ -38,7 +38,7 @@ type Stage =
   | "confirm";
 
 const FINISH_MODELS = new Set<ShoeModel>(["oxford", "derby", "monk"]);
-const NO_LAST_MODELS = new Set<ShoeModel>(["sneaker"]);
+const NO_LAST_MODELS = new Set<ShoeModel>(["sneaker", "loafer"]);
 
 const initialOrder: BespokeOrder = {
   model: null,
